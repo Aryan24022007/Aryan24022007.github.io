@@ -27,7 +27,7 @@
 /* PHASE 2.1 — HERO 3D CORE POLISH */
 .three-world{z-index:8}
 .three-world:after{content:"";position:absolute;left:50%;top:50%;width:430px;height:430px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#8f45ff24 0%,#6e2de50e 38%,transparent 70%);filter:blur(20px);pointer-events:none;z-index:-1}
-#threeCanvas{filter:drop-shadow(0 0 28px #8f45ff22)}
+#threeCanvas{filter:drop-shadow(0 0 34px #8f45ff35) drop-shadow(0 0 90px #6e2de514);mix-blend-mode:screen}
 .hero-scene .avatar-stage,.hero-scene>.orbit{display:none!important}
 .world-title{z-index:12}
 .core-node{z-index:15}
