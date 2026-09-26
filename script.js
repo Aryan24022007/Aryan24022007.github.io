@@ -238,3 +238,31 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
    canvas.addEventListener("pointercancel",()=>{});
  }
 })();
+
+
+/* RAISEN OS — PHASE 6 INTERACTIONS */
+(()=>{
+ const ids=["toggle3d","toggleFx","toggleMotion","toggleCompact"], els=ids.map(id=>document.getElementById(id)), status=document.getElementById("controlStatus"), reset=document.getElementById("resetControls");
+ if(els.some(x=>!x)||!status||!reset)return;
+ const defaults={toggle3d:true,toggleFx:true,toggleMotion:false,toggleCompact:false};
+ const save=()=>{const state={};ids.forEach((id,i)=>state[id]=els[i].checked);localStorage.setItem("raisenControls",JSON.stringify(state));apply(state)};
+ const apply=state=>{
+  document.body.classList.toggle("fx-off",!state.toggleFx);
+  document.body.classList.toggle("reduced-motion",state.toggleMotion);
+  document.body.classList.toggle("compact-mode",state.toggleCompact);
+  window.raisen3DAutoRotate=state.toggle3d;
+  const active=[];if(state.toggle3d)active.push("3D");if(state.toggleFx)active.push("FX");if(state.toggleMotion)active.push("LOW-MOTION");if(state.toggleCompact)active.push("COMPACT");
+  status.textContent="SYSTEM PROFILE: "+(active.length?active.join(" + "):"MINIMAL");
+ };
+ const stored=(()=>{try{return JSON.parse(localStorage.getItem("raisenControls")||"null")}catch(e){return null}})();
+ const state=stored?{...defaults,...stored}:defaults;
+ ids.forEach((id,i)=>els[i].checked=Boolean(state[id]));apply(state);
+ els.forEach(el=>el.addEventListener("change",save));
+ reset.addEventListener("click",()=>{ids.forEach((id,i)=>els[i].checked=defaults[id]);save()});
+})(); 
+
+/* PHASE 6 — 3D CONTROL BRIDGE */
+(()=>{
+ const oldFlag=window.raisen3DAutoRotate;
+ window.raisen3DAutoRotate=oldFlag===undefined?true:oldFlag;
+})();
