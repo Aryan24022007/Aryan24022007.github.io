@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 900" role="img" aria-labelledby="title desc">
+  <title id="title">Raisen futuristic avatar</title>
+  <desc id="desc">A mysterious hooded futuristic figure in a purple neon city.</desc>
+  <defs>
+    <radialGradient id="bg" cx="55%" cy="35%" r="80%"><stop offset="0" stop-color="#35156b"/><stop offset=".42" stop-color="#120822"/><stop offset="1" stop-color="#05030b"/></radialGradient>
+    <linearGradient id="hood" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#161225"/><stop offset=".55" stop-color="#07060d"/><stop offset="1" stop-color="#2b124f"/></linearGradient>
+    <linearGradient id="neon" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d9c2ff"/><stop offset=".45" stop-color="#a66cff"/><stop offset="1" stop-color="#5d22c8"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="28"/></filter>
+  </defs>
+  <rect width="700" height="900" fill="url(#bg)"/>
+  <circle cx="500" cy="180" r="145" fill="#8d62db" opacity=".13" filter="url(#soft)"/>
+  <circle cx="500" cy="180" r="105" fill="none" stroke="#cbb3ff" stroke-opacity=".28" stroke-width="2"/>
+  <circle cx="500" cy="180" r="112" fill="none" stroke="#a66cff" stroke-opacity=".18" stroke-width="14" filter="url(#glow)"/>
+  <g opacity=".35" stroke="#9c6cff">
+    <path d="M0 690L80 610 140 675 220 580 290 660 370 555 440 645 525 535 610 650 700 570"/>
+    <path d="M20 735L100 665 180 730 270 625 345 710 430 610 520 705 600 620 700 690"/>
+  </g>
+  <g fill="#8e5be8" opacity=".55">
+    <rect x="35" y="610" width="26" height="190"/><rect x="75" y="650" width="36" height="150"/>
+    <rect x="130" y="590" width="30" height="210"/><rect x="185" y="635" width="48" height="165"/>
+    <rect x="255" y="570" width="35" height="230"/><rect x="315" y="625" width="58" height="175"/>
+    <rect x="400" y="575" width="34" height="225"/><rect x="455" y="635" width="45" height="165"/>
+    <rect x="530" y="600" width="38" height="200"/><rect x="590" y="650" width="62" height="150"/>
+  </g>
+  <path d="M150 900C172 745 195 635 245 560C285 500 315 455 350 430C386 455 418 500 455 560C505 638 528 750 550 900Z" fill="url(#hood)" stroke="#8f59ef" stroke-opacity=".35" stroke-width="3"/>
+  <path d="M228 575C242 475 278 385 350 350C422 385 458 475 472 575C432 548 393 532 350 532C307 532 268 548 228 575Z" fill="#09070f" stroke="url(#neon)" stroke-width="5" filter="url(#glow)"/>
+  <path d="M275 470C290 417 315 385 350 373C385 385 410 417 425 470C401 448 377 438 350 438C323 438 299 448 275 470Z" fill="#010106"/>
+  <path d="M305 600C320 620 337 632 350 632C363 632 380 620 395 600L387 735C372 753 328 753 313 735Z" fill="#110d1c"/>
+  <path d="M306 602L350 655L394 602" fill="none" stroke="#b687ff" stroke-width="4" opacity=".9" filter="url(#glow)"/>
+  <path d="M330 670H370M325 696H375M322 722H378" stroke="#9c67f5" stroke-width="3" opacity=".7"/>
+  <path d="M235 790H465" stroke="#a66cff" stroke-width="2" opacity=".4"/>
+  <text x="350" y="820" text-anchor="middle" fill="#d9c9ff" font-family="Arial, sans-serif" font-size="18" letter-spacing="7">CURIOUS MIND</text>
+  <text x="350" y="850" text-anchor="middle" fill="#8e70b9" font-family="Arial, sans-serif" font-size="13" letter-spacing="5">PERSISTENT BUILDER</text>
+</svg>
