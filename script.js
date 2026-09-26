@@ -116,7 +116,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
     requestAnimationFrame(animate);
     const t=clock.getElapsedTime();
     mouse.x+=(mouse.tx-mouse.x)*.045; mouse.y+=(mouse.ty-mouse.y)*.045;
-    if(!dragging){rotY+=.0022;rotX+=.0006}
+    if(!dragging && window.raisen3DAutoRotate!==false){rotY+=.0022;rotX+=.0006}
     group.rotation.x=rotX+mouse.y*.12;
     group.rotation.y=rotY+mouse.x*.2;
     core.rotation.x=t*.22; core.rotation.y=t*.31;
