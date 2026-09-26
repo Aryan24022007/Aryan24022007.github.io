@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07050c" />
+  <meta name="description" content="Raisen — personal portfolio and digital profile." />
+  <title>Raisen — Personal Portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-orbit orbit-a"></div>
+    <div class="loader-orbit orbit-b"></div>
+    <div class="loader-core"><img src="assets/logo.svg" alt="Raisen logo" /></div>
+    <p class="loader-label">INITIALIZING RAISEN<span>_</span></p>
+  </div>
+
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="page-grid" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Raisen home">
+      <span class="brand-mark"><img src="assets/logo.svg" alt="" /></span>
+      <span>RAISEN</span>
+    </a>
+
+    <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
+      <a class="nav-link active" href="#home">Home</a>
+      <a class="nav-link" href="#about">About</a>
+      <a class="nav-link" href="#projects">Projects</a>
+      <a class="nav-link" href="#contact">Contact</a>
+      <a class="nav-link" href="#dashboard">Dashboard</a>
+    </nav>
+
+    <a class="header-cta" href="#contact">Let's talk <span>↗</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+  </header>
+
+  <main>
+    <section class="hero section" id="home">
+      <div class="hero-copy reveal">
+        <span class="eyebrow"><span class="eyebrow-dot"></span> PERSONAL PORTFOLIO / 2026</span>
+        <h1>Building ideas<br />into <span>digital reality.</span></h1>
+        <p class="hero-text">I’m Aryan — a CSE student exploring AI, Generative AI, and the craft of building things that actually work.</p>
+        <div class="hero-actions">
+          <a class="button button-primary magnetic" href="#projects">Explore projects <span>↘</span></a>
+          <a class="button button-ghost magnetic" href="#about">More about me <span>→</span></a>
+        </div>
+        <div class="hero-meta">
+          <div><span>FOCUS</span><strong>Generative AI</strong></div>
+          <div><span>BASED IN</span><strong>India</strong></div>
+          <div><span>STATUS</span><strong><i class="status-dot"></i> Learning & building</strong></div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal delay-1" aria-label="Abstract futuristic profile visual">
+        <div class="orbital-ring ring-1"></div>
+        <div class="orbital-ring ring-2"></div>
+        <div class="orbital-ring ring-3"></div>
+        <div class="hero-orb">
+          <div class="orb-noise"></div>
+          <div class="orb-scan"></div>
+          <div class="orb-letter">R</div>
+        </div>
+        <span class="float-tag tag-top">AI / ML</span>
+        <span class="float-tag tag-right">BUILD</span>
+        <span class="float-tag tag-bottom">LEARN → SHIP</span>
+        <span class="visual-index">01 / 05</span>
+      </div>
+
+      <div class="scroll-cue">SCROLL TO EXPLORE <span>↓</span></div>
+    </section>
+
+    <section class="marquee" aria-label="Areas of interest">
+      <div class="marquee-track">
+        <span>GENERATIVE AI</span><b>✦</b><span>PYTHON</span><b>✦</b><span>CREATIVE CODE</span><b>✦</b><span>PROBLEM SOLVING</span><b>✦</b><span>GENERATIVE AI</span><b>✦</b><span>PYTHON</span><b>✦</b><span>CREATIVE CODE</span><b>✦</b><span>PROBLEM SOLVING</span><b>✦</b>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="section-heading reveal">
+        <span class="eyebrow">02 / ABOUT</span>
+        <h2>A little context<br /><em>behind the screen.</em></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy reveal">
+          <p class="lead">I’m a computer science student who likes understanding how things work — then turning that knowledge into something tangible.</p>
+          <p>Right now my attention is on programming fundamentals, AI/ML concepts, and the fast-moving world of Generative AI. I’m building my skills one project at a time, with a bias toward practical work over collecting buzzwords.</p>
+          <div class="mini-signature">R<span>•</span></div>
+        </div>
+        <div class="about-cards reveal delay-1">
+          <article class="info-card">
+            <span class="card-number">01</span>
+            <div><h3>Curious by default</h3><p>I enjoy breaking complex topics into smaller systems I can actually understand.</p></div>
+          </article>
+          <article class="info-card">
+            <span class="card-number">02</span>
+            <div><h3>Learning in public</h3><p>The portfolio is intentionally a living record of what I’m learning and building.</p></div>
+          </article>
+          <article class="info-card">
+            <span class="card-number">03</span>
+            <div><h3>Built for iteration</h3><p>Projects, skills, and details can evolve here as the work gets better.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section projects" id="projects">
+      <div class="section-heading split-heading reveal">
+        <div><span class="eyebrow">03 / PROJECTS</span><h2>Things I’ve<br /><em>been building.</em></h2></div>
+        <p>Placeholder projects are included for now. Replace them with your real projects when you’re ready.</p>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card large reveal">
+          <div class="project-art art-ai"><span class="grid-wave"></span><span class="project-art-label">AI / 01</span><div class="art-orb"></div></div>
+          <div class="project-info"><span class="project-type">GEN AI / EXPLORATION</span><h3>Project Aurora</h3><p>An experimental interface for exploring AI-assisted ideas and workflows.</p><div class="tag-row"><span>Python</span><span>AI</span><span>Prototype</span></div></div>
+        </article>
+        <article class="project-card reveal delay-1">
+          <div class="project-art art-code"><span class="code-lines"></span><span class="project-art-label">DEV / 02</span></div>
+          <div class="project-info"><span class="project-type">WEB / BUILD</span><h3>Raisen OS</h3><p>A visual experiment for turning a personal portfolio into an interactive system.</p><div class="tag-row"><span>HTML</span><span>CSS</span><span>JS</span></div></div>
+        </article>
+        <article class="project-card reveal delay-2">
+          <div class="project-art art-data"><span class="data-bars"><i></i><i></i><i></i><i></i><i></i></span><span class="project-art-label">DATA / 03</span></div>
+          <div class="project-info"><span class="project-type">LEARNING / PRACTICE</span><h3>Insight Lab</h3><p>A collection of small data and programming exercises focused on learning by doing.</p><div class="tag-row"><span>Python</span><span>Data</span><span>Practice</span></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="contact-glow"></div>
+      <div class="contact-inner reveal">
+        <span class="eyebrow">04 / CONTACT</span>
+        <h2>Have an idea?<br /><em>Let’s make it real.</em></h2>
+        <p>For collaborations, opportunities, projects, or just a good conversation, send a message.</p>
+        <div class="contact-actions">
+          <a id="emailLink" class="button button-primary magnetic" href="mailto:your.email@example.com">your.email@example.com <span>↗</span></a>
+          <button class="copy-email button button-ghost magnetic" id="copyEmail" type="button">Copy email <span>⧉</span></button>
+        </div>
+        <div class="social-row">
+          <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dashboard" id="dashboard">
+      <div class="section-heading split-heading reveal">
+        <div><span class="eyebrow">05 / DASHBOARD</span><h2>A live snapshot<br /><em>of the journey.</em></h2></div>
+        <p>This is a front-end dashboard for now. It can become a real backend-powered control panel later.</p>
+      </div>
+      <div class="dashboard-grid">
+        <article class="dash-card status-card reveal"><div class="dash-top"><span>NOW</span><i class="live-pulse"></i></div><div class="big-status">BUILDING</div><p>Working through the fundamentals of software + AI.</p><div class="progress"><span style="width:72%"></span></div><div class="progress-labels"><span>Consistency</span><b>72%</b></div></article>
+        <article class="dash-card stat-card reveal delay-1"><span class="stat-label">PRIMARY FOCUS</span><strong>Gen AI</strong><p>Concepts, tools & practical projects.</p><div class="stat-icon">✦</div></article>
+        <article class="dash-card stat-card reveal delay-2"><span class="stat-label">CURRENT STACK</span><strong>Python</strong><p>C / C++ • HTML / CSS / JS</p><div class="stack-pills"><span>PY</span><span>C</span><span>JS</span></div></article>
+        <article class="dash-card timeline-card reveal"><span class="stat-label">CURRENT ARC</span><div class="timeline"><div class="timeline-item done"><i></i><span>Programming basics</span><b>Done</b></div><div class="timeline-item active"><i></i><span>AI + ML foundations</span><b>Now</b></div><div class="timeline-item"><i></i><span>Generative AI projects</span><b>Next</b></div><div class="timeline-item"><i></i><span>Internship-ready portfolio</span><b>Next</b></div></div></article>
+        <article class="dash-card quote-card reveal delay-1"><span class="quote-mark">“</span><p>Learn enough to build. Build enough to learn.</p><span class="quote-caption">RAISEN / 2026</span></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div><span class="footer-logo">R.</span> RAISEN</div>
+    <div>Designed + built as a living portfolio.</div>
+    <div>© <span id="year"></span> Raisen</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
