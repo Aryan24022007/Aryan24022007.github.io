@@ -141,3 +141,54 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 
 /* RAISEN OS — PHASE 3 INTERACTIONS */
 (()=>{const shell=document.querySelector(".dev-world-shell"),display=document.getElementById("moduleDisplay"),toggle=document.getElementById("recruiterToggle");if(!shell||!display||!toggle)return;const data={projects:{code:"PROJECT DATABASE // 03 ENTRIES",title:"What I've built so far.",text:"Raisen Portfolio, Tic-Tac-Toe in C, and DSA practice. This is a living build log — every new project can become another module.",label:"PROJECTS"},skills:{code:"SKILL MATRIX // CURRENT STATE",title:"Capabilities, not claims.",text:"C is currently the strongest area. C++ and Python are developing, DSA is in progress, and AI/ML → Generative AI is the next learning arc.",label:"SKILLS"},journey:{code:"EVOLUTION TREE // ACTIVE PATH",title:"C → DSA → Python → ML → GenAI",text:"The path is deliberately layered: strengthen programming, build problem-solving ability, learn Python, then move into ML and Generative AI.",label:"EVOLUTION"},contact:{code:"OPEN CHANNEL // CONNECTION",title:"Want to build something?",text:"Use the contact section for LinkedIn, GitHub, Instagram or email. The channel is open for projects, opportunities and conversations.",label:"CONNECT"}};const setModule=name=>{const d=data[name];if(!d)return;document.querySelectorAll(".module-card").forEach(b=>b.classList.toggle("active",b.dataset.module===name));display.querySelector(".display-code").textContent=d.code;display.querySelector("h3").textContent=d.title;display.querySelector("p").textContent=d.text;document.getElementById("moduleObject").querySelector("span").textContent=d.label+" // ONLINE"};document.querySelectorAll(".module-card").forEach(btn=>btn.addEventListener("click",()=>setModule(btn.dataset.module)));toggle.addEventListener("click",()=>{shell.classList.toggle("recruiter-mode");toggle.classList.toggle("active");toggle.innerHTML=shell.classList.contains("recruiter-mode")?'<i class="fa-solid fa-user"></i> STUDENT MODE':'<i class="fa-solid fa-briefcase"></i> RECRUITER MODE';if(shell.classList.contains("recruiter-mode")){display.querySelector(".display-code").textContent="RECRUITER VIEW // QUICK SCAN";display.querySelector("h3").textContent="C • DSA • PYTHON • AI/ML";display.querySelector("p").textContent="Second-year B.Tech CSE (AI & ML) student. Current focus: Python fundamentals, DSA practice and exploring Generative AI.";document.getElementById("moduleObject").querySelector("span").textContent="PROFILE // SCANNED"}else setModule(document.querySelector(".module-card.active")?.dataset.module||"projects")})})();
+
+
+/* RAISEN OS — PHASE 4 INTERACTIONS */
+(()=>{
+ const lab=document.querySelector(".project-lab"), modal=document.getElementById("systemModal");
+ if(!lab||!modal)return;
+ const projects={
+  portfolio:{code:"MODULE 01 // WEB / 3D SYSTEM",title:"Raisen Portfolio",text:"A futuristic personal portfolio built as an interactive system, with Three.js, responsive layouts and command-style interactions.",tags:["HTML","CSS","JAVASCRIPT","THREE.JS"]},
+  tictactoe:{code:"MODULE 02 // C / LOGIC",title:"Tic-Tac-Toe",text:"A console-based C mini project focused on conditions, loops, functions and game logic.",tags:["C","LOGIC","CONSOLE"]},
+  dsa:{code:"MODULE 03 // DSA / PRACTICE",title:"DSA Practice",text:"A growing problem-solving track focused on arrays and core data-structure practice.",tags:["ARRAYS","DSA","PROBLEM SOLVING"]}
+ };
+ const display=document.getElementById("labDisplay");
+ const setProject=name=>{
+  const p=projects[name]; if(!p)return;
+  lab.querySelectorAll(".lab-card").forEach(b=>b.classList.toggle("active",b.dataset.lab===name));
+  display.querySelector(".lab-code").textContent=p.code;
+  display.querySelector("h3").textContent=p.title;
+  display.querySelector("p").textContent=p.text;
+  display.querySelector(".lab-tags").innerHTML=p.tags.map(t=>"<b>"+t+"</b>").join("");
+  display.querySelector("#labStatus").textContent="MODULE ONLINE";
+ };
+ lab.querySelectorAll(".lab-card").forEach(b=>b.addEventListener("click",()=>setProject(b.dataset.lab)));
+
+ const list=document.getElementById("diagnosticList"), footer=document.getElementById("diagnosticFooter");
+ const checks=[
+  ["Core DOM","document.querySelector('#home') && document.querySelector('#contact')"],
+  ["Navigation","[...document.querySelectorAll('.nav-link')].every(a=>document.querySelector(a.getAttribute('href')))"],
+  ["3D Core","window.THREE && document.getElementById('threeCanvas')"],
+  ["Project Lab","document.querySelectorAll('.lab-card').length===3"],
+  ["Developer World","document.querySelector('.dev-world-shell') && document.querySelector('#recruiterToggle')"],
+  ["Command Center","document.querySelector('#osLauncher') && document.querySelector('#osCommandButton')"],
+  ["Contact Channels","document.querySelectorAll('.social-card').length>=4"]
+ ];
+ const runCheck=()=>{
+  list.innerHTML="";
+  let passed=0;
+  checks.forEach(([name,expr])=>{
+   let ok=false; try{ok=Boolean(Function("return ("+expr+")")())}catch(e){ok=false}
+   if(ok)passed++;
+   const row=document.createElement("div");row.className="diag-row "+(ok?"ok":"fail");
+   row.innerHTML="<span>"+name+"</span><b>"+(ok?"ONLINE":"CHECK")+"</b>";list.appendChild(row);
+  });
+  footer.textContent=passed===checks.length?"SYSTEM CHECK COMPLETE // ALL MODULES ONLINE":passed+"/"+checks.length+" MODULES ONLINE // REVIEW REQUIRED";
+ };
+ const open=()=>{modal.classList.add("open");modal.setAttribute("aria-hidden","false");runCheck()};
+ const close=()=>{modal.classList.remove("open");modal.setAttribute("aria-hidden","true")};
+ document.getElementById("systemCheck").addEventListener("click",open);
+ document.getElementById("systemModalClose").addEventListener("click",close);
+ modal.addEventListener("click",e=>{if(e.target===modal)close()});
+ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&modal.classList.contains("open"))close()});
+})(); 
