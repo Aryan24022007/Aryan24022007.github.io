@@ -10,6 +10,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" href="styles.css?v=20260927-0215">
+<style id="system-control-critical">
+.system-controls .control-shell{position:relative;padding:18px;border:1px solid #a66cff45;border-radius:26px;background:linear-gradient(145deg,#0b0713e8,#05030af2);box-shadow:0 35px 100px #0009,inset 0 1px #ffffff0a;overflow:hidden}
+.system-controls .control-top{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:5px 5px 16px;border-bottom:1px solid #ffffff12}
+.system-controls .control-top>div{display:flex;align-items:center;gap:8px}.system-controls .control-save{font:700 .5rem monospace;color:#8f7ba3;letter-spacing:.1em}.system-controls .control-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:18px 0}
+.system-controls .control-card{position:relative;min-height:120px;display:flex;justify-content:space-between;align-items:flex-start;gap:15px;padding:18px;border:1px solid #ffffff12;border-radius:16px;background:#ffffff05;color:#fff;cursor:pointer;box-sizing:border-box}
+.system-controls .control-card>span{display:flex;flex-direction:column;gap:7px}.system-controls .control-card b{font:700 .68rem "Space Grotesk",sans-serif;letter-spacing:.07em}.system-controls .control-card small{max-width:290px;color:#71677d;font-size:.54rem;line-height:1.55}.system-controls .control-card>span i{color:#a66cff;margin-right:7px}
+.system-controls .control-toggle{position:absolute;opacity:0;pointer-events:none}.system-controls .switch{width:42px;height:22px;flex:none;border:1px solid #a66cff35;border-radius:999px;background:#ffffff08;position:relative;margin-top:1px}.system-controls .switch:after{content:"";position:absolute;width:14px;height:14px;left:3px;top:3px;border-radius:50%;background:#776b84;transition:.25s;box-shadow:0 0 8px #0008}.system-controls .control-toggle:checked+.switch{border-color:#a66cff77;background:#a66cff18}.system-controls .control-toggle:checked+.switch:after{transform:translateX(20px);background:#cdb8ef;box-shadow:0 0 14px #a66cff}
+.system-controls .control-status{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #ffffff12;padding:14px 5px 2px;font:700 .5rem monospace;letter-spacing:.1em;color:#766a81}.system-controls .control-status button{border:1px solid #ffffff18;background:#ffffff04;color:#9e91aa;border-radius:8px;padding:7px 10px;font:700 .5rem monospace;cursor:pointer}
+@media(max-width:760px){.system-controls .control-grid{grid-template-columns:1fr}.system-controls .control-top{align-items:flex-start;flex-direction:column}.system-controls .control-card{min-height:105px}}
+</style>
 </head>
 <body><div class="os-boot" id="osBoot">
   <div class="boot-grid"></div>
