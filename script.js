@@ -237,7 +237,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
         camera.aspect=r.width/r.height;
         camera.updateProjectionMatrix();
       }
-      new ResizeObserver(resize).observe(world);\n      const visibilityObserver=new IntersectionObserver(entries=>{worldVisible=entries[0]?.isIntersecting??true;},{threshold:0});\n      visibilityObserver.observe(world);
+      new ResizeObserver(resize).observe(world); const visibilityObserver=new IntersectionObserver(entries=>{worldVisible=entries[0]?.isIntersecting??true;},{threshold:0}); visibilityObserver.observe(world);\n      const visibilityObserver=new IntersectionObserver(entries=>{worldVisible=entries[0]?.isIntersecting??true;},{threshold:0});\n      visibilityObserver.observe(world);
       resize();
 
       canvas.addEventListener("pointermove",e=>{
