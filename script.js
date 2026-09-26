@@ -153,24 +153,35 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
         mouse.x+=(mouse.tx-mouse.x)*.045;
         mouse.y+=(mouse.ty-mouse.y)*.045;
         if(!dragging && window.raisen3DAutoRotate!==false){rotY+=.0028;rotX+=.0008}
-        group.rotation.x=rotX+mouse.y*.12;
-        group.rotation.y=rotY+mouse.x*.2;
-        core.rotation.x=t*.28;
-        core.rotation.y=t*.38;
-        shell.rotation.x=-t*.14;
-        shell.rotation.y=t*.20;
-        innerGlow.scale.setScalar(1+Math.sin(t*2.4)*.08);
+        const cinematicEase=.5+.5*Math.sin(t*.9);
+        group.rotation.x=rotX+mouse.y*.16+Math.sin(t*.55)*.035;
+        group.rotation.y=rotY+mouse.x*.24+Math.cos(t*.42)*.045;
+        group.rotation.z=Math.sin(t*.34)*.018;
+        core.rotation.x=t*.28+Math.sin(t*.8)*.08;
+        core.rotation.y=t*.38+Math.cos(t*.65)*.1;
+        shell.rotation.x=-t*.14+Math.sin(t*.5)*.05;
+        shell.rotation.y=t*.20+Math.cos(t*.4)*.06;
+        const corePulse=1+Math.sin(t*2.1)*.035+Math.sin(t*4.7)*.012;
+        core.scale.setScalar(corePulse);
+        innerGlow.scale.setScalar(1+Math.sin(t*2.4)*.08+cinematicEase*.025);
+        innerGlow.material.opacity=.08+Math.sin(t*1.7)*.025;
         orbitalRings.forEach((r,i)=>{
-          r.glow.rotation.z+=r.glow.userData.speed*.008;
-          r.ring.rotation.z+=r.ring.userData.speed*.008;
+          const speed=.008*(1+i*.18);
+          r.glow.rotation.z+=r.glow.userData.speed*speed;
+          r.ring.rotation.z+=r.ring.userData.speed*speed;
+          r.glow.rotation.x+=Math.sin(t*.35+i)*.0007;
+          r.ring.rotation.x+=Math.sin(t*.35+i)*.0007;
           r.glow.rotation.y+=.0025*(i+1);
           r.ring.rotation.y+=.0025*(i+1);
-          const pulse=1+Math.sin(t*2.4+i)*.045;
+          const pulse=1+Math.sin(t*2.4+i)*.045+Math.sin(t*1.1+i)*.018;
           r.glow.scale.setScalar(pulse);
           r.ring.scale.setScalar(pulse);
+          r.glow.material.opacity=.12+Math.sin(t*2+i)*.035;
         });
         stars.rotation.y=t*.01;
-        core.scale.setScalar(1+Math.sin(t*2.1)*.035);
+        stars.rotation.x=Math.sin(t*.12)*.025;
+        camera.position.z=7.8+Math.sin(t*.55)*.08;
+        camera.lookAt(0,0,0);
         renderer.render(scene,camera);
       }
       animate();
