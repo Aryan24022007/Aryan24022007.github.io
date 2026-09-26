@@ -12,8 +12,8 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 })();
 (()=>{
  const overlay=document.getElementById("osLauncher"), openBtn=document.getElementById("osCommandButton"), closeBtn=document.getElementById("launcherClose"), input=document.getElementById("commandInput"), output=document.getElementById("commandOutput");
- const commands={help:"Available: about • skills • projects • journey • contact • github • home • clear",about:"Aryan Kumar — 2nd year CSE (AI & ML) student, builder and explorer.",skills:"C • C++ • Python • DSA • AI/ML → Generative AI",projects:"Raisen Portfolio • Tic-Tac-Toe • LeetCode / DSA practice",journey:"C → DSA → Python → ML → Generative AI",contact:"Scroll to the contact section or use the social links.",github:"Opening GitHub...",home:"Returning to the core..."};
- const run=(raw)=>{const c=raw.trim().toLowerCase();if(!c)return;if(c==="clear"){output.innerHTML="";return}if(c==="github"){output.textContent="Opening GitHub...";setTimeout(()=>window.open("https://github.com/Aryan24022007","_blank"),250);return}if(c==="home"){location.hash="home";close();return}if(["about","skills","projects","journey","contact"].includes(c)){output.textContent=commands[c];location.hash=c;return}output.innerHTML=commands[c]?commands[c]:"Command not found. Type <b>help</b>.";};
+ const commands={help:"Available: about • skills • projects • lab • developer • recruiter • neural • journey • contact • github • home • clear",about:"Aryan Kumar — 2nd year CSE (AI & ML) student, builder and explorer.",skills:"C • C++ • Python • DSA • AI/ML → Generative AI",projects:"Raisen Portfolio • Tic-Tac-Toe • LeetCode / DSA practice",journey:"C → DSA → Python → ML → Generative AI",contact:"Scroll to the contact section or use the social links.",github:"Opening GitHub...",home:"Returning to the core..."};
+ const run=(raw)=>{const c=raw.trim().toLowerCase();if(!c)return;if(c==="clear"){output.innerHTML="";return}if(c==="github"){output.textContent="Opening GitHub...";setTimeout(()=>window.open("https://github.com/Aryan24022007","_blank"),250);return}if(c==="home"){location.hash="home";close();return}if(["about","skills","projects","lab","developer","journey","contact","neural"].includes(c)){const target=c==="lab"?"project-lab":c==="developer"?"developer-world":c==="neural"?"neural-console":c;output.textContent=commands[c]||("Opening "+c+"...");location.hash=target;return}output.innerHTML=commands[c]?commands[c]:"Command not found. Type <b>help</b>.";};
  const open=()=>{overlay.classList.add("open");overlay.setAttribute("aria-hidden","false");setTimeout(()=>input.focus(),100)};
  const close=()=>{overlay.classList.remove("open");overlay.setAttribute("aria-hidden","true");input.value=""};
  openBtn.addEventListener("click",open);closeBtn.addEventListener("click",close);overlay.addEventListener("click",e=>{if(e.target===overlay)close()});input.addEventListener("keydown",e=>{if(e.key==="Enter")run(input.value);if(e.key==="Escape")close()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&overlay.classList.contains("open"))close();if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();open()}});
@@ -32,6 +32,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
   renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
   renderer.outputColorSpace=THREE.SRGBColorSpace;
   renderer.setClearColor(0x000000,0);
+  window.raisen3DReady=true;
 
   const group=new THREE.Group();
   scene.add(group);
@@ -107,8 +108,9 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
     if(dragging){rotY+=(e.clientX-lastX)*.008;rotX+=(e.clientY-lastY)*.006;lastX=e.clientX;lastY=e.clientY;}
   });
   canvas.addEventListener("pointerdown",e=>{dragging=true;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(e.pointerId)});
-  canvas.addEventListener("pointerup",()=>{dragging=false});
-  canvas.addEventListener("pointerleave",()=>{dragging=false});
+  const endDrag=e=>{dragging=false;if(e&&canvas.hasPointerCapture?.(e.pointerId))canvas.releasePointerCapture(e.pointerId)};
+  canvas.addEventListener("pointerup",endDrag);
+  canvas.addEventListener("pointercancel",endDrag);
 
   function animate(){
     requestAnimationFrame(animate);
@@ -168,7 +170,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
  const checks=[
   ["Core DOM","document.querySelector('#home') && document.querySelector('#contact')"],
   ["Navigation","[...document.querySelectorAll('.nav-link')].every(a=>document.querySelector(a.getAttribute('href')))"],
-  ["3D Core","window.THREE && document.getElementById('threeCanvas')"],
+  ["3D Core","window.raisen3DReady===true && document.getElementById('threeCanvas')"],
   ["Project Lab","document.querySelectorAll('.lab-card').length===3"],
   ["Developer World","document.querySelector('.dev-world-shell') && document.querySelector('#recruiterToggle')"],
   ["Command Center","document.querySelector('#osLauncher') && document.querySelector('#osCommandButton')"],
