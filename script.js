@@ -267,7 +267,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
       canvas.addEventListener("pointercancel",endDrag);
 
       function animate(){
-        requestAnimationFrame(animate);
+        requestAnimationFrame(animate); if(document.hidden || !worldVisible) return;
         const t=clock.getElapsedTime();
 
         mouse.x+=(mouse.tx-mouse.x)*.045;
