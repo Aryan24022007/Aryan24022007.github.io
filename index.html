@@ -45,6 +45,16 @@
 <div class="hero-actions"><a class="button primary" href="#projects">Explore my work <i class="fa-solid fa-arrow-right"></i></a><a class="button ghost" href="#about">Meet Raisen <i class="fa-solid fa-arrow-down"></i></a></div>
 <div class="hero-stats"><div><small>YEAR</small><strong>2nd</strong><span>B.Tech CSE (AI & ML)</span></div><div><small>CODING</small><strong>C</strong><span>Good level</span></div><div><small>NOW</small><strong>Python</strong><span>Just getting started</span></div></div></div>
 <div class="hero-scene reveal delay-1"><div class="scene-grid"></div><div class="scene-glow"></div>
+<div class="three-world" id="threeWorld">
+  <canvas id="threeCanvas" aria-label="Interactive 3D Raisen Core"></canvas>
+  <div class="world-title"><span>RAISEN CORE</span><b>INTERACTIVE SYSTEM</b></div>
+  <button class="core-node node-python" data-target="skills" aria-label="Open Python skills">PYTHON</button>
+  <button class="core-node node-dsa" data-target="journey" aria-label="Open DSA journey">DSA</button>
+  <button class="core-node node-ai" data-target="skills" aria-label="Open AI ML skills">AI / ML</button>
+  <button class="core-node node-projects" data-target="projects" aria-label="Open projects">PROJECTS</button>
+  <button class="core-node node-genai" data-target="skills" aria-label="Open Generative AI skills">GEN AI</button>
+  <div class="world-hint"><i class="fa-solid fa-mouse"></i> DRAG / MOVE • CLICK A MODULE</div>
+</div>
 <div class="avatar-stage tilt-card" data-tilt><div class="avatar-back"></div><div class="avatar-frame"></div><img class="ai-avatar" src="assets/ai-avatar.svg" alt="Futuristic Raisen avatar"><div class="avatar-reflection"></div><div class="holo-label label-a">RAISEN // 01</div><div class="holo-label label-b">CURIOUS MIND</div><div class="holo-label label-c">PERSISTENT BUILDER</div></div>
 <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="float-card f1"><i class="fa-solid fa-brain"></i><span>AI / ML<br><b>Exploring</b></span></div><div class="float-card f2"><i class="fa-solid fa-code"></i><span>BUILD<br><b>LEARN → SHIP</b></span></div><div class="float-card f3"><i class="fa-solid fa-gamepad"></i><span>INTERESTS<br><b>GYM • GAMING • PHOTO</b></span></div></div>
 <button class="os-command-button" id="osCommandButton" aria-label="Open Raisen Command Center"><span></span><i class="fa-solid fa-terminal"></i><b>CMD</b></button><div class="scroll-cue">SCROLL TO EXPLORE <i class="fa-solid fa-chevron-down"></i></div>
@@ -84,5 +94,6 @@
 </div></div></section>
 </main>
 <footer><div><span>R.</span> RAISEN</div><p>Curious mind • Persistent builder • Still exploring</p><small>© <b id="year"></b> Aryan Kumar</small></footer>
+<script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
 <script src="script.js"></script>
 </body></html>
