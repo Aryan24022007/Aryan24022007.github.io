@@ -34,7 +34,7 @@
 </div><header class="site-header">
 <a class="brand" href="#home"><span class="brand-mark"><img src="logo.svg" alt=""></span><span>RAISEN</span></a>
 <nav id="siteNav">
-<a class="nav-link active" href="#home">Home</a><a class="nav-link" href="#about">About</a><a class="nav-link" href="#skills">Skills</a><a class="nav-link" href="#projects">Projects</a><a class="nav-link" href="#journey">Journey</a><a class="nav-link" href="#developer-world">Developer World</a><a class="nav-link" href="#contact">Contact</a><a class="nav-link" href="#dashboard">Dashboard</a>
+<a class="nav-link active" href="#home">Home</a><a class="nav-link" href="#about">About</a><a class="nav-link" href="#skills">Skills</a><a class="nav-link" href="#projects">Projects</a><a class="nav-link" href="#project-lab">Project Lab</a><a class="nav-link" href="#journey">Journey</a><a class="nav-link" href="#developer-world">Developer World</a><a class="nav-link" href="#contact">Contact</a><a class="nav-link" href="#dashboard">Dashboard</a>
 </nav>
 <a class="header-cta" href="#contact">Let's connect <i class="fa-solid fa-arrow-up-right-from-square"></i></a><button class="menu-toggle" id="menuToggle" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
 </header>
@@ -73,6 +73,30 @@
 <div class="project-3d-grid"><article class="project-card featured tilt-card" data-tilt><div class="project-visual portfolio-visual"><div class="depth-layer layer-back"></div><div class="depth-layer layer-mid"></div><div class="depth-screen"><span>RAISEN</span><small>PERSONAL PORTFOLIO</small></div><div class="project-number">01</div></div><div class="project-info"><span>WEB • PERSONAL PROJECT</span><h3>Raisen Portfolio</h3><p>This portfolio — designed around a futuristic, mysterious AI/tech identity with responsive 3D-style interactions.</p><div class="tags"><b>HTML</b><b>CSS</b><b>JavaScript</b><b>GitHub Pages</b></div></div></article>
 <article class="project-card tilt-card" data-tilt><div class="project-visual tic-visual"><div class="tic-board"><i>X</i><i>O</i><i>X</i><i></i><i>X</i><i>O</i><i>O</i><i>X</i><i></i></div><div class="project-number">02</div></div><div class="project-info"><span>C • MINI PROJECT</span><h3>Tic-Tac-Toe</h3><p>A console-based Tic-Tac-Toe game built in C while learning programming fundamentals.</p><div class="tags"><b>C</b><b>Logic</b><b>Console</b></div></div></article>
 <article class="project-card tilt-card" data-tilt><div class="project-visual dsa-visual"><div class="code-cube"><span>&lt;/&gt;</span></div><div class="project-number">03</div></div><div class="project-info"><span>DSA • PRACTICE</span><h3>LeetCode Practice</h3><p>Solved a few DSA problems so far, mainly working with arrays while strengthening problem-solving skills.</p><div class="tags"><b>Arrays</b><b>DSA</b><b>Problem Solving</b></div></div></article></div></section>
+
+<section class="section project-lab" id="project-lab">
+<div class="section-heading split-heading reveal"><div><div class="eyebrow">04.5 / PROJECT LAB</div><h2>Open the build.<br><em>Inspect the system.</em></h2></div><p>Interactive project modules with a built-in system check. No page reloads, no dead ends.</p></div>
+<div class="lab-shell">
+  <div class="lab-top"><div><span class="system-dot"></span><small>RAISEN PROJECT LAB / ONLINE</small></div><button class="system-check" id="systemCheck"><i class="fa-solid fa-stethoscope"></i> RUN SYSTEM CHECK</button></div>
+  <div class="lab-grid">
+    <button class="lab-card active" data-lab="portfolio"><span>01</span><i class="fa-solid fa-cube"></i><b>RAISEN PORTFOLIO</b><small>WEB / 3D SYSTEM</small></button>
+    <button class="lab-card" data-lab="tictactoe"><span>02</span><i class="fa-solid fa-gamepad"></i><b>TIC-TAC-TOE</b><small>C / LOGIC</small></button>
+    <button class="lab-card" data-lab="dsa"><span>03</span><i class="fa-solid fa-code"></i><b>DSA PRACTICE</b><small>PROBLEM SOLVING</small></button>
+  </div>
+  <div class="lab-display" id="labDisplay">
+    <div class="lab-copy"><span class="lab-code">MODULE 01 // WEB / 3D SYSTEM</span><h3>Raisen Portfolio</h3><p>A futuristic personal portfolio built as an interactive system, with Three.js, responsive layouts and command-style interactions.</p><div class="lab-tags"><b>HTML</b><b>CSS</b><b>JAVASCRIPT</b><b>THREE.JS</b></div></div>
+    <div class="lab-core"><div class="lab-orbit"></div><div class="lab-orbit orbit-2"></div><div class="lab-core-dot"></div><span id="labStatus">MODULE ONLINE</span></div>
+  </div>
+</div>
+<div class="system-modal" id="systemModal" aria-hidden="true">
+  <div class="system-modal-panel">
+    <div class="system-modal-top"><span><i class="fa-solid fa-shield-halved"></i> RAISEN SYSTEM DIAGNOSTICS</span><button id="systemModalClose" aria-label="Close">ESC</button></div>
+    <div class="diagnostic-list" id="diagnosticList"></div>
+    <div class="diagnostic-footer" id="diagnosticFooter">READY TO SCAN</div>
+  </div>
+</div>
+</section>
+
 <section class="section journey" id="journey"><div class="section-heading reveal"><div class="eyebrow">05 / JOURNEY</div><h2>Learning one layer<br><em>at a time.</em></h2></div><div class="timeline-3d">
 <div class="journey-item done"><div class="node">01</div><div><small>FOUNDATIONS</small><h3>C Programming</h3><p>Built a solid foundation and reached a good level in C.</p></div><b>DONE</b></div>
 <div class="journey-item done"><div class="node">02</div><div><small>DSA</small><h3>Core Data Structures</h3><p>Arrays, strings, linked lists, stacks, queues and recursion.</p></div><b>DONE</b></div>
