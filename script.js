@@ -70,7 +70,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 
       /* Dense faceted energy core */
       const core=new THREE.Mesh(
-        new THREE.IcosahedronGeometry(1.08,4),
+        new THREE.IcosahedronGeometry(1.08,3),
         new THREE.MeshPhysicalMaterial({
           color:0x5d18c7,
           emissive:0x8e3fff,
@@ -87,7 +87,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 
       /* Hot inner plasma */
       const plasma=new THREE.Mesh(
-        new THREE.SphereGeometry(.72,28,28),
+        new THREE.SphereGeometry(.72,18,18),
         new THREE.MeshBasicMaterial({
           color:0xe8d8ff,
           transparent:true,
@@ -99,7 +99,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
       reactor.add(plasma);
 
       const plasmaHotspot=new THREE.Mesh(
-        new THREE.SphereGeometry(.38,24,24),
+        new THREE.SphereGeometry(.38,16,16),
         new THREE.MeshBasicMaterial({
           color:0xffffff,
           transparent:true,
@@ -141,14 +141,14 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
         reactor.add(holder);
 
         const glow=new THREE.Mesh(
-          new THREE.TorusGeometry(d.radius,.075,8,140),
+          new THREE.TorusGeometry(d.radius,.055,6,90),
           new THREE.MeshBasicMaterial({
             color:d.color,transparent:true,opacity:.20,
             blending:THREE.AdditiveBlending,depthWrite:false
           })
         );
         const ring=new THREE.Mesh(
-          new THREE.TorusGeometry(d.radius,.018,8,140),
+          new THREE.TorusGeometry(d.radius,.014,6,90),
           new THREE.MeshBasicMaterial({
             color:d.color,transparent:true,opacity:.95,
             blending:THREE.AdditiveBlending,depthWrite:false
@@ -160,7 +160,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
         const arcs=[];
         for(let a=0;a<2;a++){
           const arc=new THREE.Mesh(
-            new THREE.TorusGeometry(d.radius+.008,.045,6,60,Math.PI*.42),
+            new THREE.TorusGeometry(d.radius+.008,.035,5,42,Math.PI*.42),
             new THREE.MeshBasicMaterial({
               color:a===0?0xffffff:d.color,
               transparent:true,opacity:.9,
@@ -178,7 +178,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
       const particleGroups=[];
       const particleColors=[0xdcc8ff,0xa96cff,0xf1eaff];
       for(let g=0;g<3;g++){
-        const count=110;
+        const count=70;
         const pos=new Float32Array(count*3);
         for(let i=0;i<count;i++){
           const a=Math.random()*Math.PI*2;
@@ -206,7 +206,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 
       /* Fine star field gives the object scale and depth */
       const starsGeo=new THREE.BufferGeometry();
-      const starCount=700;
+      const starCount=350;
       const positions=new Float32Array(starCount*3);
       for(let i=0;i<starCount;i++){
         const radius=5+Math.random()*12;
@@ -237,7 +237,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
         camera.aspect=r.width/r.height;
         camera.updateProjectionMatrix();
       }
-      new ResizeObserver(resize).observe(world); const visibilityObserver=new IntersectionObserver(entries=>{worldVisible=entries[0]?.isIntersecting??true;},{threshold:0}); visibilityObserver.observe(world);\n      const visibilityObserver=new IntersectionObserver(entries=>{worldVisible=entries[0]?.isIntersecting??true;},{threshold:0});\n      visibilityObserver.observe(world);
+      new ResizeObserver(resize).observe(world);\n      const visibilityObserver=new IntersectionObserver(entries=>{worldVisible=entries[0]?.isIntersecting??true;},{threshold:0});\n      visibilityObserver.observe(world);
       resize();
 
       canvas.addEventListener("pointermove",e=>{
