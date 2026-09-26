@@ -97,3 +97,61 @@ body.fx-off .cursor-glow,body.fx-off .space-bg{display:none!important}body.fx-of
   .fallback-orbit-b{width:255px;height:100px}
   .fallback-orbit-c{width:300px;height:118px}
 }
+
+/* PHASE 6.5 — CINEMATIC MOTION POLISH */
+.three-world .core-node{
+  animation:raisenNodeFloat 4.8s ease-in-out infinite;
+  will-change:transform;
+}
+.three-world .node-ai{animation-delay:-1.1s}
+.three-world .node-projects{animation-delay:-2.2s}
+.three-world .node-dsa{animation-delay:-3.1s}
+.three-world .node-genai{animation-delay:-4s}
+.three-world .node-python{animation-delay:-.4s}
+.world-title span{animation:raisenTitlePulse 3.2s ease-in-out infinite}
+.world-title b{animation:raisenSubtleFlicker 5s ease-in-out infinite}
+.world-hint{animation:raisenHintFloat 2.8s ease-in-out infinite}
+@keyframes raisenNodeFloat{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(0,-7px,0) scale(1.025)}
+}
+@keyframes raisenTitlePulse{
+  0%,100%{text-shadow:0 0 18px #a66cff;opacity:.9}
+  50%{text-shadow:0 0 30px #b984ff,0 0 55px #7a3de966;opacity:1}
+}
+@keyframes raisenSubtleFlicker{
+  0%,92%,100%{opacity:.72}
+  94%{opacity:.42}
+  96%{opacity:.85}
+}
+@keyframes raisenHintFloat{
+  0%,100%{transform:translateX(-50%) translateY(0);opacity:.65}
+  50%{transform:translateX(-50%) translateY(-4px);opacity:1}
+}
+.hero-scene .three-world:before{
+  content:"";
+  position:absolute;
+  left:50%;top:53%;
+  width:310px;height:310px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  border:1px solid #a66cff0b;
+  box-shadow:0 0 80px #8f45ff0c,inset 0 0 55px #a66cff07;
+  animation:raisenAura 5s ease-in-out infinite;
+  pointer-events:none;
+  z-index:1;
+}
+@keyframes raisenAura{
+  0%,100%{transform:translate(-50%,-50%) scale(.96);opacity:.45}
+  50%{transform:translate(-50%,-50%) scale(1.08);opacity:1}
+}
+body.reduced-motion .three-world .core-node,
+body.reduced-motion .world-title span,
+body.reduced-motion .world-title b,
+body.reduced-motion .world-hint,
+body.reduced-motion .hero-scene .three-world:before{
+  animation:none!important;
+}
+@media(max-width:760px){
+  .hero-scene .three-world:before{width:230px;height:230px}
+}
