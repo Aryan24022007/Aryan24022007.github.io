@@ -192,3 +192,47 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
  modal.addEventListener("click",e=>{if(e.target===modal)close()});
  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&modal.classList.contains("open"))close()});
 })(); 
+
+
+/* RAISEN OS — PHASE 5 INTERACTIONS */
+(()=>{
+ const input=document.getElementById("neuralInput"),send=document.getElementById("neuralSend"),history=document.getElementById("neuralHistory");
+ if(!input||!send||!history)return;
+ const answers={
+  commands:"Try: about, skills, projects, journey, contact, developer, recruiter, lab, system, home, clear.",
+  about:"Aryan Kumar — second-year B.Tech CSE (AI & ML) student, builder and explorer.",
+  skills:"Current stack: C, C++ basics, Python beginner, DSA learning. AI/ML → Generative AI is the next learning direction.",
+  projects:"Current projects: Raisen Portfolio, Tic-Tac-Toe in C, and DSA/LeetCode practice.",
+  journey:"Current path: C → DSA → Python → ML → Generative AI.",
+  contact:"Open the Contact section for email, LinkedIn, GitHub and Instagram.",
+  developer:"Developer World contains the interactive skill, project, evolution and connection modules.",
+  recruiter:"Recruiter Mode is inside Developer World and gives a compact profile view.",
+  lab:"Project Lab lets you inspect the three current projects and run a system diagnostic.",
+  system:"Use RUN SYSTEM CHECK inside Project Lab to inspect the major page modules.",
+  home:"Returning to the core."
+ };
+ const add=(who,msg)=>{
+  const row=document.createElement("div");
+  row.className=who==="YOU"?"user-line":"";
+  row.innerHTML="<b>"+who+":</b> "+msg;
+  history.appendChild(row);history.scrollTop=history.scrollHeight;
+ };
+ const run=()=>{
+  const q=input.value.trim().toLowerCase();if(!q)return;
+  add("YOU",q);input.value="";
+  if(q==="clear"){history.innerHTML="";return}
+  if(q==="home"){location.hash="home";add("RAISEN",answers.home);return}
+  const key=Object.keys(answers).find(k=>q===k||q.includes(k));
+  add("RAISEN",key?answers[key]:"I don't have a live AI model attached. Try 'commands' to explore what this local console can do.");
+ };
+ send.addEventListener("click",run);
+ input.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();run()}});
+})(); 
+
+/* PHASE 5 — HARDENING */
+(()=>{
+ const canvas=document.getElementById("threeCanvas");
+ if(canvas){
+   canvas.addEventListener("pointercancel",()=>{});
+ }
+})();
