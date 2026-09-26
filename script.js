@@ -42,7 +42,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
       const renderer=new THREE.WebGLRenderer({
         canvas,alpha:true,antialias:true,powerPreference:"high-performance"
       });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));
       renderer.setSize(1,1,false);
       renderer.setClearColor(0x000000,0);
       if("outputColorSpace" in renderer)renderer.outputColorSpace=THREE.SRGBColorSpace;
@@ -178,7 +178,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
       const particleGroups=[];
       const particleColors=[0xdcc8ff,0xa96cff,0xf1eaff];
       for(let g=0;g<3;g++){
-        const count=150;
+        const count=110;
         const pos=new Float32Array(count*3);
         for(let i=0;i<count;i++){
           const a=Math.random()*Math.PI*2;
@@ -206,7 +206,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 
       /* Fine star field gives the object scale and depth */
       const starsGeo=new THREE.BufferGeometry();
-      const starCount=1100;
+      const starCount=700;
       const positions=new Float32Array(starCount*3);
       for(let i=0;i<starCount;i++){
         const radius=5+Math.random()*12;
