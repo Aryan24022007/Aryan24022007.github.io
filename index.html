@@ -1,176 +1,71 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#07050c" />
-  <meta name="description" content="Raisen — personal portfolio and digital profile." />
-  <title>Raisen — Personal Portfolio</title>
-  <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#04030a">
+<meta name="description" content="Aryan Kumar — CSE (AI & ML) student, builder and curious explorer.">
+<title>RAISEN — Aryan Kumar</title>
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="loader" id="loader" aria-hidden="true">
-    <div class="loader-orbit orbit-a"></div>
-    <div class="loader-orbit orbit-b"></div>
-    <div class="loader-core"><img src="assets/logo.svg" alt="Raisen logo" /></div>
-    <p class="loader-label">INITIALIZING RAISEN<span>_</span></p>
-  </div>
-
-  <div class="cursor-glow" id="cursorGlow"></div>
-  <div class="page-grid" aria-hidden="true"></div>
-
-  <header class="site-header">
-    <a class="brand" href="#home" aria-label="Raisen home">
-      <span class="brand-mark"><img src="assets/logo.svg" alt="" /></span>
-      <span>RAISEN</span>
-    </a>
-
-    <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
-      <a class="nav-link active" href="#home">Home</a>
-      <a class="nav-link" href="#about">About</a>
-      <a class="nav-link" href="#projects">Projects</a>
-      <a class="nav-link" href="#contact">Contact</a>
-      <a class="nav-link" href="#dashboard">Dashboard</a>
-    </nav>
-
-    <a class="header-cta" href="#contact">Let's talk <span>↗</span></a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
-  </header>
-
-  <main>
-    <section class="hero section" id="home">
-      <div class="hero-copy reveal">
-        <span class="eyebrow"><span class="eyebrow-dot"></span> PERSONAL PORTFOLIO / 2026</span>
-        <h1>Building ideas<br />into <span>digital reality.</span></h1>
-        <p class="hero-text">I’m Aryan — a CSE student exploring AI, Generative AI, and the craft of building things that actually work.</p>
-        <div class="hero-actions">
-          <a class="button button-primary magnetic" href="#projects">Explore projects <span>↘</span></a>
-          <a class="button button-ghost magnetic" href="#about">More about me <span>→</span></a>
-        </div>
-        <div class="hero-meta">
-          <div><span>FOCUS</span><strong>Generative AI</strong></div>
-          <div><span>BASED IN</span><strong>India</strong></div>
-          <div><span>STATUS</span><strong><i class="status-dot"></i> Learning & building</strong></div>
-        </div>
-      </div>
-
-      <div class="hero-visual reveal delay-1" aria-label="Abstract futuristic profile visual">
-        <div class="orbital-ring ring-1"></div>
-        <div class="orbital-ring ring-2"></div>
-        <div class="orbital-ring ring-3"></div>
-        <div class="hero-orb">
-          <div class="orb-noise"></div>
-          <div class="orb-scan"></div>
-          <div class="orb-letter">R</div>
-        </div>
-        <span class="float-tag tag-top">AI / ML</span>
-        <span class="float-tag tag-right">BUILD</span>
-        <span class="float-tag tag-bottom">LEARN → SHIP</span>
-        <span class="visual-index">01 / 05</span>
-      </div>
-
-      <div class="scroll-cue">SCROLL TO EXPLORE <span>↓</span></div>
-    </section>
-
-    <section class="marquee" aria-label="Areas of interest">
-      <div class="marquee-track">
-        <span>GENERATIVE AI</span><b>✦</b><span>PYTHON</span><b>✦</b><span>CREATIVE CODE</span><b>✦</b><span>PROBLEM SOLVING</span><b>✦</b><span>GENERATIVE AI</span><b>✦</b><span>PYTHON</span><b>✦</b><span>CREATIVE CODE</span><b>✦</b><span>PROBLEM SOLVING</span><b>✦</b>
-      </div>
-    </section>
-
-    <section class="section about" id="about">
-      <div class="section-heading reveal">
-        <span class="eyebrow">02 / ABOUT</span>
-        <h2>A little context<br /><em>behind the screen.</em></h2>
-      </div>
-      <div class="about-grid">
-        <div class="about-copy reveal">
-          <p class="lead">I’m a computer science student who likes understanding how things work — then turning that knowledge into something tangible.</p>
-          <p>Right now my attention is on programming fundamentals, AI/ML concepts, and the fast-moving world of Generative AI. I’m building my skills one project at a time, with a bias toward practical work over collecting buzzwords.</p>
-          <div class="mini-signature">R<span>•</span></div>
-        </div>
-        <div class="about-cards reveal delay-1">
-          <article class="info-card">
-            <span class="card-number">01</span>
-            <div><h3>Curious by default</h3><p>I enjoy breaking complex topics into smaller systems I can actually understand.</p></div>
-          </article>
-          <article class="info-card">
-            <span class="card-number">02</span>
-            <div><h3>Learning in public</h3><p>The portfolio is intentionally a living record of what I’m learning and building.</p></div>
-          </article>
-          <article class="info-card">
-            <span class="card-number">03</span>
-            <div><h3>Built for iteration</h3><p>Projects, skills, and details can evolve here as the work gets better.</p></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section projects" id="projects">
-      <div class="section-heading split-heading reveal">
-        <div><span class="eyebrow">03 / PROJECTS</span><h2>Things I’ve<br /><em>been building.</em></h2></div>
-        <p>Placeholder projects are included for now. Replace them with your real projects when you’re ready.</p>
-      </div>
-
-      <div class="project-grid">
-        <article class="project-card large reveal">
-          <div class="project-art art-ai"><span class="grid-wave"></span><span class="project-art-label">AI / 01</span><div class="art-orb"></div></div>
-          <div class="project-info"><span class="project-type">GEN AI / EXPLORATION</span><h3>Project Aurora</h3><p>An experimental interface for exploring AI-assisted ideas and workflows.</p><div class="tag-row"><span>Python</span><span>AI</span><span>Prototype</span></div></div>
-        </article>
-        <article class="project-card reveal delay-1">
-          <div class="project-art art-code"><span class="code-lines"></span><span class="project-art-label">DEV / 02</span></div>
-          <div class="project-info"><span class="project-type">WEB / BUILD</span><h3>Raisen OS</h3><p>A visual experiment for turning a personal portfolio into an interactive system.</p><div class="tag-row"><span>HTML</span><span>CSS</span><span>JS</span></div></div>
-        </article>
-        <article class="project-card reveal delay-2">
-          <div class="project-art art-data"><span class="data-bars"><i></i><i></i><i></i><i></i><i></i></span><span class="project-art-label">DATA / 03</span></div>
-          <div class="project-info"><span class="project-type">LEARNING / PRACTICE</span><h3>Insight Lab</h3><p>A collection of small data and programming exercises focused on learning by doing.</p><div class="tag-row"><span>Python</span><span>Data</span><span>Practice</span></div></div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section contact" id="contact">
-      <div class="contact-glow"></div>
-      <div class="contact-inner reveal">
-        <span class="eyebrow">04 / CONTACT</span>
-        <h2>Have an idea?<br /><em>Let’s make it real.</em></h2>
-        <p>For collaborations, opportunities, projects, or just a good conversation, send a message.</p>
-        <div class="contact-actions">
-          <a id="emailLink" class="button button-primary magnetic" href="mailto:your.email@example.com">your.email@example.com <span>↗</span></a>
-          <button class="copy-email button button-ghost magnetic" id="copyEmail" type="button">Copy email <span>⧉</span></button>
-        </div>
-        <div class="social-row">
-          <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
-          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>
-          <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram <span>↗</span></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section dashboard" id="dashboard">
-      <div class="section-heading split-heading reveal">
-        <div><span class="eyebrow">05 / DASHBOARD</span><h2>A live snapshot<br /><em>of the journey.</em></h2></div>
-        <p>This is a front-end dashboard for now. It can become a real backend-powered control panel later.</p>
-      </div>
-      <div class="dashboard-grid">
-        <article class="dash-card status-card reveal"><div class="dash-top"><span>NOW</span><i class="live-pulse"></i></div><div class="big-status">BUILDING</div><p>Working through the fundamentals of software + AI.</p><div class="progress"><span style="width:72%"></span></div><div class="progress-labels"><span>Consistency</span><b>72%</b></div></article>
-        <article class="dash-card stat-card reveal delay-1"><span class="stat-label">PRIMARY FOCUS</span><strong>Gen AI</strong><p>Concepts, tools & practical projects.</p><div class="stat-icon">✦</div></article>
-        <article class="dash-card stat-card reveal delay-2"><span class="stat-label">CURRENT STACK</span><strong>Python</strong><p>C / C++ • HTML / CSS / JS</p><div class="stack-pills"><span>PY</span><span>C</span><span>JS</span></div></article>
-        <article class="dash-card timeline-card reveal"><span class="stat-label">CURRENT ARC</span><div class="timeline"><div class="timeline-item done"><i></i><span>Programming basics</span><b>Done</b></div><div class="timeline-item active"><i></i><span>AI + ML foundations</span><b>Now</b></div><div class="timeline-item"><i></i><span>Generative AI projects</span><b>Next</b></div><div class="timeline-item"><i></i><span>Internship-ready portfolio</span><b>Next</b></div></div></article>
-        <article class="dash-card quote-card reveal delay-1"><span class="quote-mark">“</span><p>Learn enough to build. Build enough to learn.</p><span class="quote-caption">RAISEN / 2026</span></article>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div><span class="footer-logo">R.</span> RAISEN</div>
-    <div>Designed + built as a living portfolio.</div>
-    <div>© <span id="year"></span> Raisen</div>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+<div class="loader" id="loader"><div class="loader-3d"><img src="logo.svg" alt="Raisen"></div><div class="loader-ring one"></div><div class="loader-ring two"></div><p>INITIALIZING RAISEN<span>_</span></p></div>
+<div class="space-bg" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="cursor-glow" id="cursorGlow"></div>
+<header class="site-header">
+<a class="brand" href="#home"><span class="brand-mark"><img src="logo.svg" alt=""></span><span>RAISEN</span></a>
+<nav id="siteNav">
+<a class="nav-link active" href="#home">Home</a><a class="nav-link" href="#about">About</a><a class="nav-link" href="#skills">Skills</a><a class="nav-link" href="#projects">Projects</a><a class="nav-link" href="#journey">Journey</a><a class="nav-link" href="#contact">Contact</a><a class="nav-link" href="#dashboard">Dashboard</a>
+</nav>
+<a class="header-cta" href="#contact">Let's connect <i class="fa-solid fa-arrow-up-right-from-square"></i></a><button class="menu-toggle" id="menuToggle" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+</header>
+<main>
+<section class="hero section" id="home">
+<div class="hero-copy reveal"><div class="eyebrow"><i></i> PERSONAL PORTFOLIO / 2026</div><p class="hero-kicker">HI, I'M</p><h1>ARYAN <span>KUMAR</span></h1><div class="hero-role">CSE (AI & ML) STUDENT <b>•</b> BUILDER <b>•</b> EXPLORER</div>
+<p class="hero-text">Curious about how technology works and drawn to building things of my own. I'm currently exploring AI/ML, learning Python, and figuring out where this journey takes me.</p>
+<div class="hero-actions"><a class="button primary" href="#projects">Explore my work <i class="fa-solid fa-arrow-right"></i></a><a class="button ghost" href="#about">Meet Raisen <i class="fa-solid fa-arrow-down"></i></a></div>
+<div class="hero-stats"><div><small>YEAR</small><strong>2nd</strong><span>B.Tech CSE (AI & ML)</span></div><div><small>CODING</small><strong>C</strong><span>Good level</span></div><div><small>NOW</small><strong>Python</strong><span>Just getting started</span></div></div></div>
+<div class="hero-scene reveal delay-1"><div class="scene-grid"></div><div class="scene-glow"></div>
+<div class="avatar-stage tilt-card" data-tilt><div class="avatar-back"></div><div class="avatar-frame"></div><img class="ai-avatar" src="assets/ai-avatar.svg" alt="Futuristic Raisen avatar"><div class="avatar-reflection"></div><div class="holo-label label-a">RAISEN // 01</div><div class="holo-label label-b">CURIOUS MIND</div><div class="holo-label label-c">PERSISTENT BUILDER</div></div>
+<div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="float-card f1"><i class="fa-solid fa-brain"></i><span>AI / ML<br><b>Exploring</b></span></div><div class="float-card f2"><i class="fa-solid fa-code"></i><span>BUILD<br><b>LEARN → SHIP</b></span></div><div class="float-card f3"><i class="fa-solid fa-gamepad"></i><span>INTERESTS<br><b>GYM • GAMING • PHOTO</b></span></div></div>
+<div class="scroll-cue">SCROLL TO EXPLORE <i class="fa-solid fa-chevron-down"></i></div>
+</section>
+<section class="marquee"><div class="marquee-track"><span>GENERATIVE AI</span><b>✦</b><span>BUILD THINGS</span><b>✦</b><span>PROBLEM SOLVING</span><b>✦</b><span>CREATIVE CODE</span><b>✦</b><span>GENERATIVE AI</span><b>✦</b><span>BUILD THINGS</span><b>✦</b><span>PROBLEM SOLVING</span><b>✦</b><span>CREATIVE CODE</span><b>✦</b></div></section>
+<section class="section about" id="about"><div class="section-heading reveal"><div class="eyebrow">02 / ABOUT</div><h2>Curious enough to explore.<br><em>Persistent enough to build.</em></h2></div>
+<div class="about-3d"><article class="glass-card about-main tilt-card" data-tilt><span class="card-index">01</span><p class="lead">I'm Aryan Kumar, a second-year B.Tech student specializing in Computer Science & Engineering with a focus on AI & Machine Learning.</p><p>I enjoy turning ideas into things I can actually build. My interest in AI started with a simple curiosity about how intelligent systems work. I'm still new to AI/ML, so right now I'm exploring, learning and experimenting rather than pretending to have all the answers.</p><p>When I get stuck on a problem, I prefer to work through it and resolve it instead of leaving it for later. Outside tech, I enjoy the gym, gaming and mobile photography — especially nature.</p><div class="signature">R<span>•</span></div></article>
+<div class="about-stack"><article class="glass-card mini-3d reveal"><span>02</span><h3>Hard-working</h3><p>I keep working at a problem until I understand how to move forward.</p></article><article class="glass-card mini-3d reveal delay-1"><span>03</span><h3>Builder mindset</h3><p>I learn best when an idea becomes something real I can see and use.</p></article><article class="glass-card mini-3d reveal delay-2"><span>04</span><h3>Still exploring</h3><p>AI/ML is the direction I'm exploring now, with Generative AI on the horizon.</p></article></div></div></section>
+<section class="section skills" id="skills"><div class="section-heading reveal"><div class="eyebrow">03 / SKILLS</div><h2>What I know.<br><em>What I'm learning.</em></h2></div>
+<div class="skills-3d"><article class="skill-card tilt-card" data-tilt><div class="skill-icon"><i class="fa-solid fa-terminal"></i></div><span class="skill-level">GOOD</span><h3>C Programming</h3><p>Strongest programming language so far. Comfortable with core programming and DSA practice.</p><div class="skill-meter"><i style="width:78%"></i></div></article>
+<article class="skill-card tilt-card" data-tilt><div class="skill-icon">C<span>++</span></div><span class="skill-level">BASIC</span><h3>C++</h3><p>Building the fundamentals and continuing to practice.</p><div class="skill-meter"><i style="width:42%"></i></div></article>
+<article class="skill-card tilt-card" data-tilt><div class="skill-icon"><i class="fa-brands fa-python"></i></div><span class="skill-level">BEGINNER</span><h3>Python</h3><p>Just started. Currently working through variables and Python fundamentals.</p><div class="skill-meter"><i style="width:22%"></i></div></article>
+<article class="skill-card wide tilt-card" data-tilt><div class="skill-icon"><i class="fa-solid fa-layer-group"></i></div><span class="skill-level">LEARNING</span><h3>DSA</h3><p>Arrays • Strings • Linked Lists • Stack • Queue • Recursion</p><div class="skill-meter"><i style="width:50%"></i></div></article>
+<article class="skill-card wide future"><div class="skill-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div><span class="skill-level">NEXT</span><h3>AI / ML → Generative AI</h3><p>Completely new to the field and currently exploring the foundations. No fake expertise — just a genuine learning journey.</p><div class="future-pills"><span>ML</span><span>LLMs</span><span>GenAI</span></div></article></div></section>
+<section class="section projects" id="projects"><div class="section-heading split-heading reveal"><div><div class="eyebrow">04 / PROJECTS</div><h2>Things I've<br><em>actually built.</em></h2></div><p>Small projects are still projects. This section will grow as I keep learning.</p></div>
+<div class="project-3d-grid"><article class="project-card featured tilt-card" data-tilt><div class="project-visual portfolio-visual"><div class="depth-layer layer-back"></div><div class="depth-layer layer-mid"></div><div class="depth-screen"><span>RAISEN</span><small>PERSONAL PORTFOLIO</small></div><div class="project-number">01</div></div><div class="project-info"><span>WEB • PERSONAL PROJECT</span><h3>Raisen Portfolio</h3><p>This portfolio — designed around a futuristic, mysterious AI/tech identity with responsive 3D-style interactions.</p><div class="tags"><b>HTML</b><b>CSS</b><b>JavaScript</b><b>GitHub Pages</b></div></div></article>
+<article class="project-card tilt-card" data-tilt><div class="project-visual tic-visual"><div class="tic-board"><i>X</i><i>O</i><i>X</i><i></i><i>X</i><i>O</i><i>O</i><i>X</i><i></i></div><div class="project-number">02</div></div><div class="project-info"><span>C • MINI PROJECT</span><h3>Tic-Tac-Toe</h3><p>A console-based Tic-Tac-Toe game built in C while learning programming fundamentals.</p><div class="tags"><b>C</b><b>Logic</b><b>Console</b></div></div></article>
+<article class="project-card tilt-card" data-tilt><div class="project-visual dsa-visual"><div class="code-cube"><span>&lt;/&gt;</span></div><div class="project-number">03</div></div><div class="project-info"><span>DSA • PRACTICE</span><h3>LeetCode Practice</h3><p>Solved a few DSA problems so far, mainly working with arrays while strengthening problem-solving skills.</p><div class="tags"><b>Arrays</b><b>DSA</b><b>Problem Solving</b></div></div></article></div></section>
+<section class="section journey" id="journey"><div class="section-heading reveal"><div class="eyebrow">05 / JOURNEY</div><h2>Learning one layer<br><em>at a time.</em></h2></div><div class="timeline-3d">
+<div class="journey-item done"><div class="node">01</div><div><small>FOUNDATIONS</small><h3>C Programming</h3><p>Built a solid foundation and reached a good level in C.</p></div><b>DONE</b></div>
+<div class="journey-item done"><div class="node">02</div><div><small>DSA</small><h3>Core Data Structures</h3><p>Arrays, strings, linked lists, stacks, queues and recursion.</p></div><b>DONE</b></div>
+<div class="journey-item active"><div class="node">03</div><div><small>NOW</small><h3>Python</h3><p>Just started Python and currently learning the fundamentals.</p></div><b>NOW</b></div>
+<div class="journey-item active"><div class="node">04</div><div><small>EXPLORING</small><h3>AI / ML</h3><p>Starting from the beginning and learning what the field is really about.</p></div><b>EXPLORING</b></div>
+<div class="journey-item next"><div class="node">05</div><div><small>NEXT HORIZON</small><h3>Generative AI</h3><p>Move from foundations into LLMs and practical GenAI projects.</p></div><b>NEXT</b></div></div></section>
+<section class="section achievements" id="achievements"><div class="section-heading reveal"><div class="eyebrow">06 / MILESTONES</div><h2>Proof that I'm<br><em>showing up.</em></h2></div><div class="achievement-card glass-card tilt-card" data-tilt><div class="achievement-icon"><i class="fa-solid fa-certificate"></i></div><div><span>GDG ON CAMPUS KIIT • 28 FEBRUARY 2026</span><h3>Breaking an LLM</h3><p>Certificate of Participation for actively participating in the GDG On Campus KIIT event “Breaking an LLM”.</p><div class="achievement-tag">CERTIFICATE OF PARTICIPATION</div></div></div></section>
+<section class="section dashboard" id="dashboard"><div class="section-heading split-heading reveal"><div><div class="eyebrow">07 / DASHBOARD</div><h2>A snapshot of<br><em>where I am now.</em></h2></div><p>This dashboard changes as the journey changes.</p></div><div class="dashboard-3d">
+<article class="dash glass-card tilt-card" data-tilt><small>CURRENT STATUS</small><strong>EXPLORING</strong><p>AI/ML foundations + Python</p><div class="pulse-line"></div></article>
+<article class="dash glass-card tilt-card" data-tilt><small>PRIMARY LANGUAGE</small><strong>C</strong><p>Good level • DSA practice</p></article>
+<article class="dash glass-card tilt-card" data-tilt><small>PROJECTS</small><strong>03</strong><p>Portfolio • Tic-Tac-Toe • LeetCode practice</p></article>
+<article class="dash glass-card wide-dash"><small>THE NEXT ARC</small><div class="arc"><span class="done">C</span><i></i><span class="done">DSA</span><i></i><span class="now">Python</span><i></i><span>ML</span><i></i><span>GenAI</span></div></article></div></section>
+<section class="section contact" id="contact"><div class="contact-orb"></div><div class="contact-inner reveal"><div class="eyebrow">08 / CONTACT</div><h2>Let's make<br><em>something amazing.</em></h2><p>If you want to talk about technology, a project, an opportunity, or just exchange ideas — I'd be happy to connect.</p>
+<div class="social-grid">
+<a class="social-card" href="mailto:aryan240207@gmail.com"><span class="social-icon"><i class="fa-solid fa-envelope"></i></span><div><small>EMAIL</small><strong>aryan240207@gmail.com</strong></div><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+<a class="social-card" href="https://www.linkedin.com/in/aryan-kumar-1a9378397" target="_blank" rel="noreferrer"><span class="social-icon"><i class="fa-brands fa-linkedin-in"></i></span><div><small>LINKEDIN</small><strong>Connect with me</strong></div><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+<a class="social-card" href="https://github.com/Aryan24022007" target="_blank" rel="noreferrer"><span class="social-icon"><i class="fa-brands fa-github"></i></span><div><small>GITHUB</small><strong>View my work</strong></div><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+<a class="social-card" href="https://www.instagram.com/invites/contact/?utm_content=qt1fq4s&stkn=1ivhsrqq9sql9" target="_blank" rel="noreferrer"><span class="social-icon"><i class="fa-brands fa-instagram"></i></span><div><small>INSTAGRAM</small><strong>Follow my journey</strong></div><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+</div></div></section>
+</main>
+<footer><div><span>R.</span> RAISEN</div><p>Curious mind • Persistent builder • Still exploring</p><small>© <b id="year"></b> Aryan Kumar</small></footer>
+<script src="script.js"></script>
+</body></html>
