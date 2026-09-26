@@ -57,17 +57,25 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
   group.add(shell);
 
   const ringData=[
-    [1.85,.55,0.18,0.25],
-    [2.2,.85,-.2,-.18],
-    [2.65,1.15,.45,.12]
+    [1.82,.62,0.18,0.42,0x9b5cff],
+    [2.18,.92,-.22,-0.30,0xd7bfff],
+    [2.58,1.22,.46,0.22,0x7d3cff]
   ];
+  const orbitalRings=[];
   ringData.forEach((d,i)=>{
-    const torus=new THREE.Mesh(
-      new THREE.TorusGeometry(d[0],.012,8,120),
-      new THREE.MeshBasicMaterial({color:i===1?0xd2b8ff:0x8f55ff,transparent:true,opacity:.55})
+    const glow=new THREE.Mesh(
+      new THREE.TorusGeometry(d[0],.065,10,160),
+      new THREE.MeshBasicMaterial({color:d[4],transparent:true,opacity:.10,blending:THREE.AdditiveBlending,depthWrite:false})
     );
-    torus.rotation.x=d[1]; torus.rotation.z=d[2]; torus.userData.speed=d[3];
-    group.add(torus);
+    const ring=new THREE.Mesh(
+      new THREE.TorusGeometry(d[0],.022,10,160),
+      new THREE.MeshBasicMaterial({color:d[4],transparent:true,opacity:.88,blending:THREE.AdditiveBlending,depthWrite:false})
+    );
+    glow.rotation.x=d[1]; glow.rotation.z=d[2];
+    ring.rotation.copy(glow.rotation);
+    glow.userData.speed=d[3]; ring.userData.speed=d[3];
+    group.add(glow); group.add(ring);
+    orbitalRings.push({glow,ring});
   });
 
   const starsGeo=new THREE.BufferGeometry(), starCount=900, positions=new Float32Array(starCount*3);
@@ -111,7 +119,15 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
     group.rotation.y=rotY+mouse.x*.2;
     core.rotation.x=t*.22; core.rotation.y=t*.31;
     shell.rotation.x=-t*.1; shell.rotation.y=t*.14;
-    group.children.slice(2,5).forEach((o,i)=>{o.rotation.z+=ringData[i][3]*.006;o.rotation.y+=.0015*(i+1)});
+    orbitalRings.forEach((r,i)=>{
+      r.glow.rotation.z+=r.glow.userData.speed*.006;
+      r.ring.rotation.z+=r.ring.userData.speed*.006;
+      r.glow.rotation.y+=.002*(i+1);
+      r.ring.rotation.y+=.002*(i+1);
+      const pulse=1+Math.sin(t*2.2+i)*.035;
+      r.glow.scale.setScalar(pulse);
+      r.ring.scale.setScalar(pulse);
+    });
     stars.rotation.y=t*.008;
     core.scale.setScalar(1+Math.sin(t*2.1)*.025);
     renderer.render(scene,camera);
