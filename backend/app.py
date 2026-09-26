@@ -9,9 +9,13 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+from rag import load_retriever
+
 BASE = Path(__file__).resolve().parent
 with open(BASE / "knowledge.json", "r", encoding="utf-8") as f:
     KNOWLEDGE = json.load(f)
+
+RETRIEVER = load_retriever(BASE / "knowledge.json")
 
 ORIGINS = [
     x.strip()
@@ -22,7 +26,7 @@ ORIGINS = [
     if x.strip()
 ]
 
-app = FastAPI(title="Raisen AI", version="0.1.1")
+app = FastAPI(title="Raisen AI", version="0.2.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ORIGINS,
@@ -37,38 +41,8 @@ class ChatRequest(BaseModel):
     conversation_history: list[dict[str, str]] = Field(default_factory=list)
 
 
-def retrieve(query: str) -> str:
-    q = query.lower()
-    sections = []
-
-    if any(
-        k in q
-        for k in ["who", "aryan", "study", "college", "education", "student"]
-    ):
-        sections.append(KNOWLEDGE["identity"])
-
-    if any(
-        k in q
-        for k in [
-            "skill",
-            "know",
-            "python",
-            "c++",
-            "c programming",
-            "dsa",
-            "ai",
-            "genai",
-        ]
-    ):
-        sections.append(KNOWLEDGE["skills"])
-
-    if any(k in q for k in ["project", "built", "portfolio", "tic", "leetcode"]):
-        sections.append(KNOWLEDGE["projects"])
-
-    if not sections:
-        sections.append(KNOWLEDGE["personality"])
-
-    return json.dumps(sections, ensure_ascii=False)
+def retrieve(query: str) -> tuple[str, list[dict]]:
+    return RETRIEVER.context(query, top_k=3)
 
 
 def local_tool(message: str) -> str | None:
@@ -96,6 +70,8 @@ def health():
         "service": "raisen-ai",
         "version": app.version,
         "ai_configured": bool(os.getenv("GROQ_API_KEY", "").strip()),
+        "retriever": "local-hybrid-tfidf",
+        "knowledge_documents": len(RETRIEVER.documents),
     }
 
 
@@ -120,7 +96,10 @@ async def chat(req: ChatRequest):
             "grounded": True,
         }
 
-    context = retrieve(message)
+    context, sources = retrieve(message)
+    if not context:
+        context = "No matching personal knowledge was retrieved."
+
     system = (
         "You are RAISEN, Aryan Kumar's personal portfolio AI companion. "
         "Answer naturally and concisely. Only make claims about Aryan that are "
@@ -179,4 +158,12 @@ async def chat(req: ChatRequest):
     if not reply:
         raise HTTPException(status_code=502, detail="AI provider returned an empty response.")
 
-    return {"reply": reply, "route": "rag", "grounded": True}
+    return {
+        "reply": reply,
+        "route": "rag",
+        "grounded": bool(sources),
+        "sources": [
+            {"id": item["id"], "title": item["title"], "score": item["score"]}
+            for item in sources
+        ],
+    }
