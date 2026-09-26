@@ -7,18 +7,22 @@ from zoneinfo import ZoneInfo
 import httpx
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 BASE = Path(__file__).resolve().parent
 with open(BASE / "knowledge.json", "r", encoding="utf-8") as f:
     KNOWLEDGE = json.load(f)
 
-ORIGINS = [x.strip() for x in os.getenv(
-    "ALLOWED_ORIGINS",
-    "http://localhost:8000,http://127.0.0.1:8000"
-).split(",") if x.strip()]
+ORIGINS = [
+    x.strip()
+    for x in os.getenv(
+        "ALLOWED_ORIGINS",
+        "http://localhost:8000,http://127.0.0.1:8000",
+    ).split(",")
+    if x.strip()
+]
 
-app = FastAPI(title="Raisen AI", version="0.1.0")
+app = FastAPI(title="Raisen AI", version="0.1.1")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ORIGINS,
@@ -27,42 +31,73 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class ChatRequest(BaseModel):
-    message: str
-    conversation_history: list[dict[str, str]] = []
 
-def knowledge_text() -> str:
-    return json.dumps(KNOWLEDGE, ensure_ascii=False, indent=2)
+class ChatRequest(BaseModel):
+    message: str = Field(min_length=1, max_length=2000)
+    conversation_history: list[dict[str, str]] = Field(default_factory=list)
+
 
 def retrieve(query: str) -> str:
     q = query.lower()
     sections = []
-    if any(k in q for k in ["who", "aryan", "study", "college", "education", "student"]):
+
+    if any(
+        k in q
+        for k in ["who", "aryan", "study", "college", "education", "student"]
+    ):
         sections.append(KNOWLEDGE["identity"])
-    if any(k in q for k in ["skill", "know", "python", "c++", "c programming", "dsa", "ai", "genai"]):
+
+    if any(
+        k in q
+        for k in [
+            "skill",
+            "know",
+            "python",
+            "c++",
+            "c programming",
+            "dsa",
+            "ai",
+            "genai",
+        ]
+    ):
         sections.append(KNOWLEDGE["skills"])
+
     if any(k in q for k in ["project", "built", "portfolio", "tic", "leetcode"]):
         sections.append(KNOWLEDGE["projects"])
+
     if not sections:
         sections.append(KNOWLEDGE["personality"])
+
     return json.dumps(sections, ensure_ascii=False)
 
-def local_tool(message: str):
+
+def local_tool(message: str) -> str | None:
     q = message.lower().strip()
     try:
         tz = ZoneInfo("Asia/Kolkata")
     except Exception:
         tz = None
+
     now = datetime.now(tz)
+
     if any(x in q for x in ["what time", "current time", "time now", "time is it"]):
         return f"It is {now.strftime('%I:%M %p')} in India right now."
+
     if any(x in q for x in ["today", "what date", "current date", "date today"]):
         return f"Today is {now.strftime('%A, %d %B %Y')}."
+
     return None
+
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "service": "raisen-ai", "ai_configured": bool(os.getenv("GROQ_API_KEY"))}
+    return {
+        "status": "ok",
+        "service": "raisen-ai",
+        "version": app.version,
+        "ai_configured": bool(os.getenv("GROQ_API_KEY", "").strip()),
+    }
+
 
 @app.post("/chat")
 async def chat(req: ChatRequest):
@@ -74,45 +109,74 @@ async def chat(req: ChatRequest):
     if tool_answer:
         return {"reply": tool_answer, "route": "utility", "grounded": True}
 
-    api_key = os.getenv("GROQ_API_KEY")
+    api_key = os.getenv("GROQ_API_KEY", "").strip()
     if not api_key:
         return {
-            "reply": "Raisen AI is connected to the site, but its language model is not configured yet. The local knowledge and time/date tools are ready.",
+            "reply": (
+                "Raisen AI is connected to the site, but its language model is not "
+                "configured yet. The local knowledge and time/date tools are ready."
+            ),
             "route": "system",
-            "grounded": True
+            "grounded": True,
         }
 
     context = retrieve(message)
     system = (
         "You are RAISEN, Aryan Kumar's personal portfolio AI companion. "
-        "Answer naturally and concisely. Only make claims about Aryan that are supported by the supplied context. "
-        "If the context does not contain an answer, say you do not have that information yet. "
-        "Never invent achievements, skills, projects, experience, contact details, grades or personal history. "
-        "You may answer general conversational questions, but do not pretend to be Aryan. "
+        "Answer naturally and concisely. Only make claims about Aryan that are "
+        "supported by the supplied context. If the context does not contain an "
+        "answer, say you do not have that information yet. Never invent "
+        "achievements, skills, projects, experience, contact details, grades or "
+        "personal history. You may answer general conversational questions, but "
+        "do not pretend to be Aryan. "
         f"PERSONAL CONTEXT:\n{context}"
     )
-    history = req.conversation_history[-8:]
+
+    history = []
+    for item in req.conversation_history[-8:]:
+        role = item.get("role", "")
+        content = item.get("content", "").strip()
+        if role in {"user", "assistant"} and content:
+            history.append({"role": role, "content": content[:4000]})
+
     messages = [{"role": "system", "content": system}]
-    messages.extend(
-        {"role": m.get("role", "user"), "content": m.get("content", "")}
-        for m in history
-        if m.get("role") in {"user", "assistant"} and m.get("content")
-    )
+    messages.extend(history)
     messages.append({"role": "user", "content": message})
 
-    async with httpx.AsyncClient(timeout=25) as client:
-        response = await client.post(
-            "https://api.groq.com/openai/v1/chat/completions",
-            headers={"Authorization": f"Bearer {api_key}"},
-            json={
-                "model": os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile"),
-                "messages": messages,
-                "temperature": 0.35,
-                "max_tokens": 350
-            }
-        )
-    if response.status_code >= 400:
+    try:
+        async with httpx.AsyncClient(timeout=25.0) as client:
+            response = await client.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": os.getenv(
+                        "GROQ_MODEL", "llama-3.3-70b-versatile"
+                    ),
+                    "messages": messages,
+                    "temperature": 0.35,
+                    "max_tokens": 350,
+                },
+            )
+            response.raise_for_status()
+            data = response.json()
+    except httpx.TimeoutException:
+        raise HTTPException(status_code=504, detail="AI provider timed out.")
+    except httpx.HTTPStatusError:
         raise HTTPException(status_code=502, detail="AI provider request failed.")
-    data = response.json()
-    reply = data["choices"][0]["message"]["content"].strip()
+    except httpx.RequestError:
+        raise HTTPException(status_code=502, detail="AI provider is unreachable.")
+    except ValueError:
+        raise HTTPException(status_code=502, detail="AI provider returned invalid data.")
+
+    try:
+        reply = data["choices"][0]["message"]["content"].strip()
+    except (KeyError, IndexError, TypeError, AttributeError):
+        raise HTTPException(status_code=502, detail="AI provider returned an unexpected response.")
+
+    if not reply:
+        raise HTTPException(status_code=502, detail="AI provider returned an empty response.")
+
     return {"reply": reply, "route": "rag", "grounded": True}
