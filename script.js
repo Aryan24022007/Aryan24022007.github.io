@@ -20,14 +20,14 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
  document.querySelectorAll(".launcher-hints button").forEach(b=>b.addEventListener("click",()=>run(b.dataset.command)));
 })();
 
-/* RAISEN OS — PHASE 2: THREE.JS CORE WORLD — HARDENED */
+/* RAISEN OS — PHASE 2: CINEMATIC 3D REACTOR CORE */
 (()=>{
   const canvas=document.getElementById("threeCanvas"), world=document.getElementById("threeWorld"), fallback=document.getElementById("threeFallback");
-  if(!canvas || !world) return;
+  if(!canvas||!world)return;
 
   const showFallback=()=>{
     world.classList.add("three-fallback-active");
-    if(fallback) fallback.setAttribute("aria-hidden","false");
+    if(fallback)fallback.setAttribute("aria-hidden","false");
     window.raisen3DReady=true;
     window.raisen3DWebGL=false;
   };
@@ -36,82 +36,198 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
     if(!window.THREE){showFallback();return;}
     try{
       const scene=new THREE.Scene();
-      const camera=new THREE.PerspectiveCamera(38,1,.1,100);
-      camera.position.set(0,0,7.8);
+      const camera=new THREE.PerspectiveCamera(34,1,.1,100);
+      camera.position.set(0,0,8.6);
 
-      const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,powerPreference:"high-performance"});
+      const renderer=new THREE.WebGLRenderer({
+        canvas,alpha:true,antialias:true,powerPreference:"high-performance"
+      });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
-      if("outputColorSpace" in renderer) renderer.outputColorSpace=THREE.SRGBColorSpace;
+      renderer.setSize(1,1,false);
       renderer.setClearColor(0x000000,0);
+      if("outputColorSpace" in renderer)renderer.outputColorSpace=THREE.SRGBColorSpace;
+      if("toneMapping" in renderer){
+        renderer.toneMapping=THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure=1.15;
+      }
       window.raisen3DReady=true;
       window.raisen3DWebGL=true;
 
-      const group=new THREE.Group();
-      scene.add(group);
-
-      scene.add(new THREE.AmbientLight(0xb58cff,2.4));
-      const key=new THREE.PointLight(0xc18aff,28,20);
-      key.position.set(2.5,3,4);
+      /* Lighting: soft fill + strong purple key + cool rim */
+      scene.add(new THREE.HemisphereLight(0xd8c5ff,0x09030f,2.2));
+      const key=new THREE.PointLight(0xc58aff,38,22,2);
+      key.position.set(3,3,4);
       scene.add(key);
-      const rim=new THREE.PointLight(0x6c2cff,18,16);
-      rim.position.set(-3,-2,-2);
+      const rim=new THREE.PointLight(0x6f25ff,26,18,2);
+      rim.position.set(-3,-2,-3);
       scene.add(rim);
+      const topLight=new THREE.PointLight(0xf2e9ff,10,10,2);
+      topLight.position.set(0,4,1);
+      scene.add(topLight);
 
+      const reactor=new THREE.Group();
+      scene.add(reactor);
+
+      /* Dense faceted energy core */
       const core=new THREE.Mesh(
-        new THREE.IcosahedronGeometry(1.15,4),
-        new THREE.MeshStandardMaterial({
-          color:0x6b20d8,emissive:0xa45cff,emissiveIntensity:2.4,
-          metalness:.35,roughness:.18,transparent:true,opacity:.98
+        new THREE.IcosahedronGeometry(1.08,5),
+        new THREE.MeshPhysicalMaterial({
+          color:0x5d18c7,
+          emissive:0x8e3fff,
+          emissiveIntensity:3.1,
+          metalness:.58,
+          roughness:.16,
+          clearcoat:.8,
+          clearcoatRoughness:.12,
+          transparent:true,
+          opacity:.98
         })
       );
-      group.add(core);
+      reactor.add(core);
 
+      /* Hot inner plasma */
+      const plasma=new THREE.Mesh(
+        new THREE.SphereGeometry(.72,40,40),
+        new THREE.MeshBasicMaterial({
+          color:0xe8d8ff,
+          transparent:true,
+          opacity:.20,
+          blending:THREE.AdditiveBlending,
+          depthWrite:false
+        })
+      );
+      reactor.add(plasma);
+
+      const plasmaHotspot=new THREE.Mesh(
+        new THREE.SphereGeometry(.38,32,32),
+        new THREE.MeshBasicMaterial({
+          color:0xffffff,
+          transparent:true,
+          opacity:.38,
+          blending:THREE.AdditiveBlending,
+          depthWrite:false
+        })
+      );
+      reactor.add(plasmaHotspot);
+
+      /* Transparent protective shell */
       const shell=new THREE.Mesh(
-        new THREE.IcosahedronGeometry(1.45,2),
-        new THREE.MeshBasicMaterial({color:0xe1caff,wireframe:true,transparent:true,opacity:.42})
+        new THREE.IcosahedronGeometry(1.38,3),
+        new THREE.MeshPhysicalMaterial({
+          color:0x9f67ff,
+          emissive:0x4c168e,
+          emissiveIntensity:.65,
+          metalness:.1,
+          roughness:.2,
+          clearcoat:1,
+          clearcoatRoughness:.05,
+          transparent:true,
+          opacity:.16,
+          wireframe:true
+        })
       );
-      group.add(shell);
+      reactor.add(shell);
 
-      const innerGlow=new THREE.Mesh(
-        new THREE.SphereGeometry(.78,32,32),
-        new THREE.MeshBasicMaterial({color:0xd8baff,transparent:true,opacity:.10,blending:THREE.AdditiveBlending,depthWrite:false})
-      );
-      group.add(innerGlow);
-
+      /* Three different orbital rings for depth */
       const ringData=[
-        [1.82,.62,.18,.42,0xb16cff],
-        [2.18,.92,-.22,-.30,0xe3d2ff],
-        [2.58,1.22,.46,.22,0x8b45ff]
+        {radius:1.78,x:.62,z:.18,speed:.55,color:0xb978ff},
+        {radius:2.12,x:.92,z:-.22,speed:-.34,color:0xe7d9ff},
+        {radius:2.50,x:1.22,z:.46,speed:.25,color:0x8d43ff}
       ];
       const orbitalRings=[];
       ringData.forEach((d,i)=>{
+        const holder=new THREE.Group();
+        holder.rotation.set(d.x,0,d.z);
+        reactor.add(holder);
+
         const glow=new THREE.Mesh(
-          new THREE.TorusGeometry(d[0],.085,12,192),
-          new THREE.MeshBasicMaterial({color:d[4],transparent:true,opacity:.18,blending:THREE.AdditiveBlending,depthWrite:false})
+          new THREE.TorusGeometry(d.radius,.075,12,220),
+          new THREE.MeshBasicMaterial({
+            color:d.color,transparent:true,opacity:.20,
+            blending:THREE.AdditiveBlending,depthWrite:false
+          })
         );
         const ring=new THREE.Mesh(
-          new THREE.TorusGeometry(d[0],.032,12,192),
-          new THREE.MeshBasicMaterial({color:d[4],transparent:true,opacity:.98,blending:THREE.AdditiveBlending,depthWrite:false})
+          new THREE.TorusGeometry(d.radius,.018,10,220),
+          new THREE.MeshBasicMaterial({
+            color:d.color,transparent:true,opacity:.95,
+            blending:THREE.AdditiveBlending,depthWrite:false
+          })
         );
-        glow.rotation.x=d[1]; glow.rotation.z=d[2];
-        ring.rotation.copy(glow.rotation);
-        glow.userData.speed=d[3]; ring.userData.speed=d[3];
-        group.add(glow); group.add(ring);
-        orbitalRings.push({glow,ring});
+        holder.add(glow,ring);
+
+        /* Moving light segments make the rings feel energized */
+        const arcs=[];
+        for(let a=0;a<2;a++){
+          const arc=new THREE.Mesh(
+            new THREE.TorusGeometry(d.radius+.008,.045,8,90,Math.PI*.42),
+            new THREE.MeshBasicMaterial({
+              color:a===0?0xffffff:d.color,
+              transparent:true,opacity:.9,
+              blending:THREE.AdditiveBlending,depthWrite:false
+            })
+          );
+          arc.rotation.z=a*Math.PI;
+          holder.add(arc);
+          arcs.push(arc);
+        }
+        orbitalRings.push({holder,glow,ring,arcs,speed:d.speed,index:i});
       });
 
-      const starsGeo=new THREE.BufferGeometry(), starCount=900, positions=new Float32Array(starCount*3);
+      /* Floating energy particles arranged around the reactor */
+      const particleGroups=[];
+      const particleColors=[0xdcc8ff,0xa96cff,0xf1eaff];
+      for(let g=0;g<3;g++){
+        const count=150;
+        const pos=new Float32Array(count*3);
+        for(let i=0;i<count;i++){
+          const a=Math.random()*Math.PI*2;
+          const radius=1.55+g*.36+(Math.random()-.5)*.18;
+          const y=(Math.random()-.5)*.34;
+          pos[i*3]=Math.cos(a)*radius;
+          pos[i*3+1]=y+(Math.random()-.5)*.5;
+          pos[i*3+2]=Math.sin(a)*radius;
+        }
+        const geo=new THREE.BufferGeometry();
+        geo.setAttribute("position",new THREE.BufferAttribute(pos,3));
+        const points=new THREE.Points(
+          geo,
+          new THREE.PointsMaterial({
+            color:particleColors[g],size:g===1?.022:.016,
+            transparent:true,opacity:g===1?.78:.52,
+            blending:THREE.AdditiveBlending,depthWrite:false
+          })
+        );
+        points.rotation.x=ringData[g].x;
+        points.rotation.z=ringData[g].z;
+        reactor.add(points);
+        particleGroups.push(points);
+      }
+
+      /* Fine star field gives the object scale and depth */
+      const starsGeo=new THREE.BufferGeometry();
+      const starCount=1100;
+      const positions=new Float32Array(starCount*3);
       for(let i=0;i<starCount;i++){
-        const radius=5+Math.random()*10, a=Math.random()*Math.PI*2, b=Math.acos(2*Math.random()-1);
+        const radius=5+Math.random()*12;
+        const a=Math.random()*Math.PI*2;
+        const b=Math.acos(2*Math.random()-1);
         positions[i*3]=radius*Math.sin(b)*Math.cos(a);
         positions[i*3+1]=radius*Math.cos(b);
         positions[i*3+2]=radius*Math.sin(b)*Math.sin(a);
       }
       starsGeo.setAttribute("position",new THREE.BufferAttribute(positions,3));
-      const stars=new THREE.Points(starsGeo,new THREE.PointsMaterial({color:0xd9c7ff,size:.028,transparent:true,opacity:.7}));
+      const stars=new THREE.Points(
+        starsGeo,
+        new THREE.PointsMaterial({
+          color:0xcdb7ff,size:.022,transparent:true,opacity:.58,
+          depthWrite:false
+        })
+      );
       scene.add(stars);
 
-      const mouse={x:0,y:0,tx:0,ty:0}, clock=new THREE.Clock();
+      const mouse={x:0,y:0,tx:0,ty:0};
+      const clock=new THREE.Clock();
       let dragging=false,lastX=0,lastY=0,rotX=0,rotY=0;
 
       function resize(){
@@ -131,13 +247,16 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
           mouse.ty=((e.clientY-r.top)/r.height-.5)*2;
         }
         if(dragging){
-          rotY+=(e.clientX-lastX)*.008;
-          rotX+=(e.clientY-lastY)*.006;
-          lastX=e.clientX; lastY=e.clientY;
+          rotY+=(e.clientX-lastX)*.009;
+          rotX+=(e.clientY-lastY)*.007;
+          lastX=e.clientX;
+          lastY=e.clientY;
         }
       });
       canvas.addEventListener("pointerdown",e=>{
-        dragging=true;lastX=e.clientX;lastY=e.clientY;
+        dragging=true;
+        lastX=e.clientX;
+        lastY=e.clientY;
         canvas.setPointerCapture?.(e.pointerId);
       });
       const endDrag=e=>{
@@ -150,38 +269,67 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
       function animate(){
         requestAnimationFrame(animate);
         const t=clock.getElapsedTime();
+
         mouse.x+=(mouse.tx-mouse.x)*.045;
         mouse.y+=(mouse.ty-mouse.y)*.045;
-        if(!dragging && window.raisen3DAutoRotate!==false){rotY+=.0028;rotX+=.0008}
-        const cinematicEase=.5+.5*Math.sin(t*.9);
-        group.rotation.x=rotX+mouse.y*.16+Math.sin(t*.55)*.035;
-        group.rotation.y=rotY+mouse.x*.24+Math.cos(t*.42)*.045;
-        group.rotation.z=Math.sin(t*.34)*.018;
-        core.rotation.x=t*.28+Math.sin(t*.8)*.08;
-        core.rotation.y=t*.38+Math.cos(t*.65)*.1;
-        shell.rotation.x=-t*.14+Math.sin(t*.5)*.05;
-        shell.rotation.y=t*.20+Math.cos(t*.4)*.06;
-        const corePulse=1+Math.sin(t*2.1)*.035+Math.sin(t*4.7)*.012;
-        core.scale.setScalar(corePulse);
-        innerGlow.scale.setScalar(1+Math.sin(t*2.4)*.08+cinematicEase*.025);
-        innerGlow.material.opacity=.08+Math.sin(t*1.7)*.025;
+
+        if(!dragging&&window.raisen3DAutoRotate!==false){
+          rotY+=.0026;
+          rotX+=.00065;
+        }
+
+        /* Cinematic floating motion */
+        reactor.position.y=Math.sin(t*.72)*.045;
+        reactor.rotation.x=rotX+mouse.y*.14+Math.sin(t*.45)*.028;
+        reactor.rotation.y=rotY+mouse.x*.20+Math.cos(t*.38)*.035;
+        reactor.rotation.z=Math.sin(t*.31)*.012;
+
+        core.rotation.x=t*.22;
+        core.rotation.y=t*.34;
+        core.rotation.z=t*.10;
+
+        plasma.rotation.y=-t*.55;
+        plasma.rotation.x=t*.31;
+        plasmaHotspot.rotation.y=t*.9;
+
+        shell.rotation.x=-t*.12;
+        shell.rotation.y=t*.18;
+        shell.rotation.z=-t*.07;
+
+        const breathe=1+Math.sin(t*2.15)*.035+Math.sin(t*4.4)*.012;
+        core.scale.setScalar(breathe);
+        plasma.scale.setScalar(1+Math.sin(t*2.7)*.11);
+        plasmaHotspot.scale.setScalar(1+Math.sin(t*3.2)*.14);
+
+        key.position.x=3+Math.sin(t*.8)*.7;
+        key.position.y=3+Math.cos(t*.6)*.5;
+        rim.position.x=-3+Math.cos(t*.5)*.6;
+
         orbitalRings.forEach((r,i)=>{
-          const speed=.008*(1+i*.18);
-          r.glow.rotation.z+=r.glow.userData.speed*speed;
-          r.ring.rotation.z+=r.ring.userData.speed*speed;
-          r.glow.rotation.x+=Math.sin(t*.35+i)*.0007;
-          r.ring.rotation.x+=Math.sin(t*.35+i)*.0007;
-          r.glow.rotation.y+=.0025*(i+1);
-          r.ring.rotation.y+=.0025*(i+1);
-          const pulse=1+Math.sin(t*2.4+i)*.045+Math.sin(t*1.1+i)*.018;
-          r.glow.scale.setScalar(pulse);
-          r.ring.scale.setScalar(pulse);
-          r.glow.material.opacity=.12+Math.sin(t*2+i)*.035;
+          r.holder.rotation.y=t*r.speed*.16;
+          r.holder.rotation.x+=Math.sin(t*.25+i)*.00035;
+          r.glow.material.opacity=.13+Math.sin(t*2+i)*.035;
+          r.arcs.forEach((arc,a)=>{
+            arc.rotation.z=a*Math.PI+t*(.5+i*.12)*(a?-.7:1);
+            arc.rotation.x=Math.sin(t*.9+i)*.035;
+          });
+          const pulse=1+Math.sin(t*2.2+i)*.025;
+          r.holder.scale.setScalar(pulse);
         });
-        stars.rotation.y=t*.01;
-        stars.rotation.x=Math.sin(t*.12)*.025;
-        camera.position.z=7.8+Math.sin(t*.55)*.08;
+
+        particleGroups.forEach((p,i)=>{
+          p.rotation.y=t*(.10+i*.055)*(i===1?-1:1);
+          p.rotation.z=Math.sin(t*.35+i)*.04;
+        });
+
+        stars.rotation.y=t*.006;
+        stars.rotation.x=Math.sin(t*.12)*.02;
+
+        camera.position.z=8.6+Math.sin(t*.42)*.07;
+        camera.position.x=Math.sin(t*.23)*.08;
+        camera.position.y=Math.cos(t*.27)*.05;
         camera.lookAt(0,0,0);
+
         renderer.render(scene,camera);
       }
       animate();
@@ -190,7 +338,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
         btn.addEventListener("click",()=>document.getElementById(btn.dataset.target)?.scrollIntoView({behavior:"smooth"}));
       });
     }catch(error){
-      console.warn("RAISEN 3D WebGL unavailable; using visual fallback.",error);
+      console.warn("RAISEN cinematic 3D unavailable; using visual fallback.",error);
       showFallback();
     }
   };
