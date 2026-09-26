@@ -228,7 +228,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 
       const mouse={x:0,y:0,tx:0,ty:0};
       const clock=new THREE.Clock();
-      let dragging=false,lastX=0,lastY=0,rotX=0,rotY=0;
+      let dragging=false,lastX=0,lastY=0,rotX=0,rotY=0,worldVisible=true;
 
       function resize(){
         const r=world.getBoundingClientRect();
@@ -237,7 +237,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
         camera.aspect=r.width/r.height;
         camera.updateProjectionMatrix();
       }
-      new ResizeObserver(resize).observe(world);
+      new ResizeObserver(resize).observe(world);\n      const visibilityObserver=new IntersectionObserver(entries=>{worldVisible=entries[0]?.isIntersecting??true;},{threshold:0});\n      visibilityObserver.observe(world);
       resize();
 
       canvas.addEventListener("pointermove",e=>{
