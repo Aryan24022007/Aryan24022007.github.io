@@ -155,3 +155,4 @@ body.reduced-motion .hero-scene .three-world:before{
 @media(max-width:760px){
   .hero-scene .three-world:before{width:230px;height:230px}
 }
+\n/* CERTIFICATE VIEWER — ACHIEVEMENT CARD */\n.achievement-link{display:grid;text-decoration:none;color:inherit;cursor:pointer;transition:transform .3s,border-color .3s,box-shadow .3s}.achievement-link:hover{transform:translateY(-6px) translateZ(8px);border-color:#a66cff66;box-shadow:0 25px 65px #0008,0 0 35px #a66cff12}.achievement-link .achievement-tag{display:inline-flex;align-items:center;gap:8px}.achievement-link .achievement-tag i{font-size:.65rem;color:#a66cff;transition:transform .25s}.achievement-link:hover .achievement-tag i{transform:translate(2px,-2px)}\n
