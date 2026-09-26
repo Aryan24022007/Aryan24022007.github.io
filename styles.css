@@ -76,3 +76,24 @@
 .control-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:18px 0}.control-card{position:relative;min-height:120px;display:flex;justify-content:space-between;gap:15px;padding:18px;border:1px solid var(--line);border-radius:16px;background:#ffffff03;color:#fff;cursor:pointer;transition:.25s}.control-card:hover{border-color:#a66cff5c;background:#a66cff08;transform:translateY(-2px)}.control-card>span{display:flex;flex-direction:column;gap:7px}.control-card b{font:700 .68rem "Space Grotesk";letter-spacing:.07em}.control-card small{max-width:290px;color:#71677d;font-size:.54rem;line-height:1.55}.control-card>span i{color:#a66cff;margin-right:7px}.control-toggle{position:absolute;opacity:0;pointer-events:none}.switch{width:42px;height:22px;flex:none;border:1px solid #a66cff35;border-radius:999px;background:#ffffff08;position:relative;margin-top:1px}.switch:after{content:"";position:absolute;width:14px;height:14px;left:3px;top:3px;border-radius:50%;background:#776b84;transition:.25s;box-shadow:0 0 8px #0008}.control-toggle:checked+.switch{border-color:#a66cff77;background:#a66cff18}.control-toggle:checked+.switch:after{transform:translateX(20px);background:#cdb8ef;box-shadow:0 0 14px #a66cff}.control-status{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding:14px 5px 2px;font:700 .5rem monospace;letter-spacing:.1em;color:#766a81}.control-status button{border:1px solid var(--line);background:#ffffff04;color:#9e91aa;border-radius:8px;padding:7px 10px;font:700 .5rem monospace;cursor:pointer}.control-status button:hover{color:#fff;border-color:#a66cff66}
 body.fx-off .cursor-glow,body.fx-off .space-bg{display:none!important}body.fx-off .lab-core-dot,body.fx-off .neural-orb-core{box-shadow:0 0 18px #a66cff!important}body.reduced-motion *,body.reduced-motion *:before,body.reduced-motion *:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}body.compact-mode .section{padding-top:70px;padding-bottom:70px}
 @media(max-width:760px){.control-grid{grid-template-columns:1fr}.control-card{min-height:105px}.control-top{align-items:flex-start;flex-direction:column}}
+
+/* PHASE 2.2 — 3D VISIBILITY + WEBGL FALLBACK */
+.three-fallback{display:none;position:absolute;inset:0;z-index:4;pointer-events:none}
+.three-world.three-fallback-active #threeCanvas{display:none}
+.three-world.three-fallback-active .three-fallback{display:block}
+.fallback-core{position:absolute;left:50%;top:53%;width:128px;height:128px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff 0%,#e5d3ff 10%,#b477ff 25%,#7b31df 48%,#361075 70%,transparent 73%);box-shadow:0 0 24px #c08cff,0 0 65px #9b5cff,0 0 145px #7a3de955;animation:fallbackCorePulse 2.3s ease-in-out infinite}
+.fallback-core:before{content:"";position:absolute;inset:-9px;border-radius:50%;border:1px solid #d8c0ff99;box-shadow:0 0 22px #a66cff66;animation:fallbackCoreSpin 5s linear infinite}
+.fallback-core:after{content:"";position:absolute;inset:14px;border:1px solid #fff8;border-radius:42% 58% 55% 45%;transform:rotate(25deg);animation:fallbackCoreSpin 4s linear infinite reverse}
+.fallback-core span{position:absolute;inset:26%;border-radius:50%;background:#f6f0ff;box-shadow:0 0 18px #fff,0 0 42px #c39aff}
+.fallback-orbit{position:absolute;left:50%;top:53%;width:260px;height:100px;transform:translate(-50%,-50%) rotateX(66deg) rotateZ(18deg);border:2px solid #b57affcc;border-radius:50%;box-shadow:0 0 12px #a66cff88,0 0 28px #a66cff44;animation:fallbackOrbitA 4.8s linear infinite}
+.fallback-orbit-b{width:320px;height:126px;transform:translate(-50%,-50%) rotateX(70deg) rotateZ(-28deg);border-color:#e3d2ffbb;animation-duration:6.2s;animation-direction:reverse}
+.fallback-orbit-c{width:380px;height:150px;transform:translate(-50%,-50%) rotateY(65deg) rotateZ(8deg);border-color:#8c4cffbb;animation-duration:7.4s}
+@keyframes fallbackOrbitA{to{transform:translate(-50%,-50%) rotateX(66deg) rotateZ(378deg)}}
+@keyframes fallbackCoreSpin{to{transform:rotate(360deg)}}
+@keyframes fallbackCorePulse{50%{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 0 34px #c08cff,0 0 85px #9b5cff,0 0 170px #7a3de977}}
+@media(max-width:760px){
+  .fallback-core{width:100px;height:100px}
+  .fallback-orbit{width:210px;height:82px}
+  .fallback-orbit-b{width:255px;height:100px}
+  .fallback-orbit-c{width:300px;height:118px}
+}
