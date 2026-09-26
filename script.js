@@ -19,3 +19,106 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
  openBtn.addEventListener("click",open);closeBtn.addEventListener("click",close);overlay.addEventListener("click",e=>{if(e.target===overlay)close()});input.addEventListener("keydown",e=>{if(e.key==="Enter")run(input.value);if(e.key==="Escape")close()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&overlay.classList.contains("open"))close();if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();open()}});
  document.querySelectorAll(".launcher-hints button").forEach(b=>b.addEventListener("click",()=>run(b.dataset.command)));
 })();
+
+/* RAISEN OS — PHASE 2: THREE.JS CORE WORLD */
+(()=>{
+  const canvas=document.getElementById("threeCanvas"), world=document.getElementById("threeWorld");
+  if(!canvas || !window.THREE) return;
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(38,1,.1,100);
+  camera.position.set(0,0,7.8);
+
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.outputColorSpace=THREE.SRGBColorSpace;
+  renderer.setClearColor(0x000000,0);
+
+  const group=new THREE.Group();
+  scene.add(group);
+
+  const ambient=new THREE.AmbientLight(0x8d6ccf,1.5);
+  scene.add(ambient);
+  const key=new THREE.PointLight(0xa66cff,18,18);
+  key.position.set(2.5,3,4);
+  scene.add(key);
+  const rim=new THREE.PointLight(0x5b27c9,12,12);
+  rim.position.set(-3,-2,-2);
+  scene.add(rim);
+
+  const coreGeo=new THREE.IcosahedronGeometry(1.15,5);
+  const coreMat=new THREE.MeshStandardMaterial({color:0x4e18a5,emissive:0x8b45ff,emissiveIntensity:1.5,metalness:.45,roughness:.2,transparent:true,opacity:.92});
+  const core=new THREE.Mesh(coreGeo,coreMat);
+  group.add(core);
+
+  const shell=new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.42,2),
+    new THREE.MeshBasicMaterial({color:0xb78cff,wireframe:true,transparent:true,opacity:.24})
+  );
+  group.add(shell);
+
+  const ringData=[
+    [1.85,.55,0.18,0.25],
+    [2.2,.85,-.2,-.18],
+    [2.65,1.15,.45,.12]
+  ];
+  ringData.forEach((d,i)=>{
+    const torus=new THREE.Mesh(
+      new THREE.TorusGeometry(d[0],.012,8,120),
+      new THREE.MeshBasicMaterial({color:i===1?0xd2b8ff:0x8f55ff,transparent:true,opacity:.55})
+    );
+    torus.rotation.x=d[1]; torus.rotation.z=d[2]; torus.userData.speed=d[3];
+    group.add(torus);
+  });
+
+  const starsGeo=new THREE.BufferGeometry(), starCount=900, positions=new Float32Array(starCount*3);
+  for(let i=0;i<starCount;i++){
+    const radius=5+Math.random()*10, a=Math.random()*Math.PI*2, b=Math.acos(2*Math.random()-1);
+    positions[i*3]=radius*Math.sin(b)*Math.cos(a);
+    positions[i*3+1]=radius*Math.cos(b);
+    positions[i*3+2]=radius*Math.sin(b)*Math.sin(a);
+  }
+  starsGeo.setAttribute("position",new THREE.BufferAttribute(positions,3));
+  const stars=new THREE.Points(starsGeo,new THREE.PointsMaterial({color:0xc9b6ff,size:.025,transparent:true,opacity:.55}));
+  scene.add(stars);
+
+  const mouse={x:0,y:0,tx:0,ty:0}, clock=new THREE.Clock();
+  let dragging=false,lastX=0,lastY=0,rotX=0,rotY=0;
+
+  function resize(){
+    const r=world.getBoundingClientRect();
+    renderer.setSize(r.width,r.height,false);
+    camera.aspect=r.width/r.height;
+    camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(world); resize();
+
+  canvas.addEventListener("pointermove",e=>{
+    const r=canvas.getBoundingClientRect();
+    mouse.tx=((e.clientX-r.left)/r.width-.5)*2;
+    mouse.ty=((e.clientY-r.top)/r.height-.5)*2;
+    if(dragging){rotY+=(e.clientX-lastX)*.008;rotX+=(e.clientY-lastY)*.006;lastX=e.clientX;lastY=e.clientY;}
+  });
+  canvas.addEventListener("pointerdown",e=>{dragging=true;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(e.pointerId)});
+  canvas.addEventListener("pointerup",()=>{dragging=false});
+  canvas.addEventListener("pointerleave",()=>{dragging=false});
+
+  function animate(){
+    requestAnimationFrame(animate);
+    const t=clock.getElapsedTime();
+    mouse.x+=(mouse.tx-mouse.x)*.045; mouse.y+=(mouse.ty-mouse.y)*.045;
+    if(!dragging){rotY+=.0022;rotX+=.0006}
+    group.rotation.x=rotX+mouse.y*.12;
+    group.rotation.y=rotY+mouse.x*.2;
+    core.rotation.x=t*.22; core.rotation.y=t*.31;
+    shell.rotation.x=-t*.1; shell.rotation.y=t*.14;
+    group.children.slice(2,5).forEach((o,i)=>{o.rotation.z+=ringData[i][3]*.006;o.rotation.y+=.0015*(i+1)});
+    stars.rotation.y=t*.008;
+    core.scale.setScalar(1+Math.sin(t*2.1)*.025);
+    renderer.render(scene,camera);
+  }
+  animate();
+
+  document.querySelectorAll(".core-node").forEach(btn=>{
+    btn.addEventListener("click",()=>document.getElementById(btn.dataset.target)?.scrollIntoView({behavior:"smooth"}));
+  });
+})();
