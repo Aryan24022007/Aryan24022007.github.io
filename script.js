@@ -70,7 +70,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 
       /* Dense faceted energy core */
       const core=new THREE.Mesh(
-        new THREE.IcosahedronGeometry(1.08,5),
+        new THREE.IcosahedronGeometry(1.08,4),
         new THREE.MeshPhysicalMaterial({
           color:0x5d18c7,
           emissive:0x8e3fff,
@@ -87,7 +87,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 
       /* Hot inner plasma */
       const plasma=new THREE.Mesh(
-        new THREE.SphereGeometry(.72,40,40),
+        new THREE.SphereGeometry(.72,28,28),
         new THREE.MeshBasicMaterial({
           color:0xe8d8ff,
           transparent:true,
@@ -99,7 +99,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
       reactor.add(plasma);
 
       const plasmaHotspot=new THREE.Mesh(
-        new THREE.SphereGeometry(.38,32,32),
+        new THREE.SphereGeometry(.38,24,24),
         new THREE.MeshBasicMaterial({
           color:0xffffff,
           transparent:true,
@@ -112,7 +112,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 
       /* Transparent protective shell */
       const shell=new THREE.Mesh(
-        new THREE.IcosahedronGeometry(1.38,3),
+        new THREE.IcosahedronGeometry(1.38,2),
         new THREE.MeshPhysicalMaterial({
           color:0x9f67ff,
           emissive:0x4c168e,
@@ -141,14 +141,14 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
         reactor.add(holder);
 
         const glow=new THREE.Mesh(
-          new THREE.TorusGeometry(d.radius,.075,12,220),
+          new THREE.TorusGeometry(d.radius,.075,8,140),
           new THREE.MeshBasicMaterial({
             color:d.color,transparent:true,opacity:.20,
             blending:THREE.AdditiveBlending,depthWrite:false
           })
         );
         const ring=new THREE.Mesh(
-          new THREE.TorusGeometry(d.radius,.018,10,220),
+          new THREE.TorusGeometry(d.radius,.018,8,140),
           new THREE.MeshBasicMaterial({
             color:d.color,transparent:true,opacity:.95,
             blending:THREE.AdditiveBlending,depthWrite:false
@@ -160,7 +160,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
         const arcs=[];
         for(let a=0;a<2;a++){
           const arc=new THREE.Mesh(
-            new THREE.TorusGeometry(d.radius+.008,.045,8,90,Math.PI*.42),
+            new THREE.TorusGeometry(d.radius+.008,.045,6,60,Math.PI*.42),
             new THREE.MeshBasicMaterial({
               color:a===0?0xffffff:d.color,
               transparent:true,opacity:.9,
