@@ -11,10 +11,27 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body><div class="os-boot" id="osBoot">
+  <div class="boot-grid"></div>
+  <div class="boot-core"><div class="boot-ring r1"></div><div class="boot-ring r2"></div><img src="logo.svg" alt="Raisen"></div>
+  <div class="boot-copy">
+    <div class="boot-brand">RAISEN <span>OS</span></div>
+    <div class="boot-status" id="bootStatus">INITIALIZING CORE...</div>
+    <div class="boot-progress"><i id="bootProgress"></i></div>
+    <div class="boot-log" id="bootLog"></div>
+  </div>
+  <button class="boot-skip" id="bootSkip">SKIP BOOT <i class="fa-solid fa-forward"></i></button>
+</div>
 <div class="loader" id="loader"><div class="loader-3d"><img src="logo.svg" alt="Raisen"></div><div class="loader-ring one"></div><div class="loader-ring two"></div><p>INITIALIZING RAISEN<span>_</span></p></div>
 <div class="space-bg" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="cursor-glow" id="cursorGlow"></div>
-<header class="site-header">
+<div class="os-launcher" id="osLauncher" aria-hidden="true">
+  <div class="launcher-panel">
+    <div class="launcher-top"><span><i class="fa-solid fa-terminal"></i> RAISEN COMMAND CENTER</span><button id="launcherClose" aria-label="Close">ESC</button></div>
+    <div class="launcher-command"><span>&gt;</span><input id="commandInput" autocomplete="off" spellcheck="false" placeholder="type a command..."></div>
+    <div class="launcher-output" id="commandOutput">Type <b>help</b> to see available commands.</div>
+    <div class="launcher-hints"><button data-command="help">help</button><button data-command="about">about</button><button data-command="projects">projects</button><button data-command="skills">skills</button><button data-command="contact">contact</button></div>
+  </div>
+</div><header class="site-header">
 <a class="brand" href="#home"><span class="brand-mark"><img src="logo.svg" alt=""></span><span>RAISEN</span></a>
 <nav id="siteNav">
 <a class="nav-link active" href="#home">Home</a><a class="nav-link" href="#about">About</a><a class="nav-link" href="#skills">Skills</a><a class="nav-link" href="#projects">Projects</a><a class="nav-link" href="#journey">Journey</a><a class="nav-link" href="#contact">Contact</a><a class="nav-link" href="#dashboard">Dashboard</a>
@@ -30,7 +47,7 @@
 <div class="hero-scene reveal delay-1"><div class="scene-grid"></div><div class="scene-glow"></div>
 <div class="avatar-stage tilt-card" data-tilt><div class="avatar-back"></div><div class="avatar-frame"></div><img class="ai-avatar" src="assets/ai-avatar.svg" alt="Futuristic Raisen avatar"><div class="avatar-reflection"></div><div class="holo-label label-a">RAISEN // 01</div><div class="holo-label label-b">CURIOUS MIND</div><div class="holo-label label-c">PERSISTENT BUILDER</div></div>
 <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="float-card f1"><i class="fa-solid fa-brain"></i><span>AI / ML<br><b>Exploring</b></span></div><div class="float-card f2"><i class="fa-solid fa-code"></i><span>BUILD<br><b>LEARN → SHIP</b></span></div><div class="float-card f3"><i class="fa-solid fa-gamepad"></i><span>INTERESTS<br><b>GYM • GAMING • PHOTO</b></span></div></div>
-<div class="scroll-cue">SCROLL TO EXPLORE <i class="fa-solid fa-chevron-down"></i></div>
+<button class="os-command-button" id="osCommandButton" aria-label="Open Raisen Command Center"><span></span><i class="fa-solid fa-terminal"></i><b>CMD</b></button><div class="scroll-cue">SCROLL TO EXPLORE <i class="fa-solid fa-chevron-down"></i></div>
 </section>
 <section class="marquee"><div class="marquee-track"><span>GENERATIVE AI</span><b>✦</b><span>BUILD THINGS</span><b>✦</b><span>PROBLEM SOLVING</span><b>✦</b><span>CREATIVE CODE</span><b>✦</b><span>GENERATIVE AI</span><b>✦</b><span>BUILD THINGS</span><b>✦</b><span>PROBLEM SOLVING</span><b>✦</b><span>CREATIVE CODE</span><b>✦</b></div></section>
 <section class="section about" id="about"><div class="section-heading reveal"><div class="eyebrow">02 / ABOUT</div><h2>Curious enough to explore.<br><em>Persistent enough to build.</em></h2></div>
