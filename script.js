@@ -430,7 +430,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
   or localStorage.setItem("raisenApiBase","https://your-backend.example.com")
  */
  const detectedBase=(location.hostname.endsWith(".vercel.app")||location.hostname==="vercel.app")?location.origin+"/api":"http://127.0.0.1:8000";
- const API_BASE=(window.RAISEN_API_BASE||localStorage.getItem("raisenApiBase")||detectedBase).replace(/\\/+$/,"");
+ const API_BASE=(window.RAISEN_API_BASE||localStorage.getItem("raisenApiBase")||detectedBase).replace(/\/+$/,"");
  const conversation=[];
 
  const localCommands={
@@ -473,16 +473,16 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
  };
 
  const parseSSE=(buffer,consume)=>{
-  const events=buffer.split("\\n\\n");
+  const events=buffer.split("\n\n");
   const remainder=events.pop()||"";
   events.forEach(event=>{
    let type="message";
    const data=[];
-   event.split("\\n").forEach(line=>{
+   event.split("\n").forEach(line=>{
     if(line.startsWith("event:"))type=line.slice(6).trim();
     if(line.startsWith("data:"))data.push(line.slice(5).trim());
    });
-   consume(type,data.join("\\n"));
+   consume(type,data.join("\n"));
   });
   return remainder;
  };
@@ -550,7 +550,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
     buffer=parseSSE(buffer,consume);
    }
    buffer+=decoder.decode();
-   if(buffer.trim())parseSSE(buffer+"\\n\\n",consume);
+   if(buffer.trim())parseSSE(buffer+"\n\n",consume);
   }finally{
    reader.releaseLock();
   }
