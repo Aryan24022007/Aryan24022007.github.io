@@ -192,6 +192,7 @@ def root():
 
 
 @app.get("/health")
+@app.get("/api")
 @app.get("/api/health")
 def health():
     return {
@@ -207,6 +208,7 @@ def health():
 
 
 @app.post("/chat")
+@app.post("/api")
 @app.post("/api/chat")
 async def chat(req: ChatRequest):
     message = req.message.strip()
