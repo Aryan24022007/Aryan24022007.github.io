@@ -429,7 +429,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
   window.RAISEN_API_BASE="https://your-backend.example.com";
   or localStorage.setItem("raisenApiBase","https://your-backend.example.com")
  */
- const detectedBase=location.hostname.endsWith(".vercel.app")||location.hostname==="vercel.app"?location.origin:"http://127.0.0.1:8000";
+ const detectedBase=location.hostname.endsWith(".vercel.app")||location.hostname==="vercel.app"?location.origin:location.hostname.endsWith(".github.io")?"https://aryan24022007-github-io.vercel.app":"http://127.0.0.1:8000";
  const API_BASE=(window.RAISEN_API_BASE||localStorage.getItem("raisenApiBase")||detectedBase).replace(/\/+$/,"");
  const conversation=[];
 
