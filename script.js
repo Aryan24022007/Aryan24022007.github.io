@@ -429,7 +429,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
   window.RAISEN_API_BASE="https://your-backend.example.com";
   or localStorage.setItem("raisenApiBase","https://your-backend.example.com")
  */
- const detectedBase=(location.hostname.endsWith(".vercel.app")||location.hostname==="vercel.app")?location.origin+"/api":"http://127.0.0.1:8000";
+ const detectedBase=location.hostname.endsWith(".vercel.app")||location.hostname==="vercel.app"?location.origin:"http://127.0.0.1:8000";
  const API_BASE=(window.RAISEN_API_BASE||localStorage.getItem("raisenApiBase")||detectedBase).replace(/\/+$/,"");
  const conversation=[];
 
@@ -492,7 +492,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
    throw new Error("AI backend URL is not configured.");
   }
 
-  const response=await fetch(API_BASE+"/chat/stream",{
+  const response=await fetch(API_BASE+"/api",{
    method:"POST",
    headers:{"Content-Type":"application/json"},
    body:JSON.stringify({
@@ -614,7 +614,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 
  const checkHealth=async()=>{
   try{
-   const response=await fetch(API_BASE+"/health",{method:"GET",cache:"no-store"});
+   const response=await fetch(API_BASE+"/api",{method:"GET",cache:"no-store"});
    if(!response.ok)throw new Error("HTTP "+response.status);
    const data=await response.json();
    if(data.ai_configured){
