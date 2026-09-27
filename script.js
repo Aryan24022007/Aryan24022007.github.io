@@ -178,7 +178,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
       const particleGroups=[];
       const particleColors=[0xdcc8ff,0xa96cff,0xf1eaff];
       for(let g=0;g<3;g++){
-        const count=70;
+        const count=35;
         const pos=new Float32Array(count*3);
         for(let i=0;i<count;i++){
           const a=Math.random()*Math.PI*2;
@@ -206,7 +206,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 
       /* Fine star field gives the object scale and depth */
       const starsGeo=new THREE.BufferGeometry();
-      const starCount=350;
+      const starCount=180;
       const positions=new Float32Array(starCount*3);
       for(let i=0;i<starCount;i++){
         const radius=5+Math.random()*12;
@@ -228,7 +228,7 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 
       const mouse={x:0,y:0,tx:0,ty:0};
       const clock=new THREE.Clock();
-      let dragging=false,lastX=0,lastY=0,rotX=0,rotY=0,worldVisible=true;
+      let dragging=false,lastX=0,lastY=0,rotX=0,rotY=0,worldVisible=true,lastFrame=0;
 
       function resize(){
         const r=world.getBoundingClientRect();
@@ -268,8 +268,11 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
       canvas.addEventListener("pointerup",endDrag);
       canvas.addEventListener("pointercancel",endDrag);
 
-      function animate(){
-        requestAnimationFrame(animate); if(document.hidden || !worldVisible) return;
+      function animate(now=0){
+        requestAnimationFrame(animate);
+        if(document.hidden || !worldVisible) return;
+        if(now-lastFrame<33)return;
+        lastFrame=now;
         const t=clock.getElapsedTime();
 
         mouse.x+=(mouse.tx-mouse.x)*.045;
