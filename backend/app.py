@@ -192,6 +192,7 @@ def root():
 
 
 @app.get("/health")
+@app.get("/api/health")
 def health():
     return {
         "status": "ok",
@@ -206,6 +207,7 @@ def health():
 
 
 @app.post("/chat")
+@app.post("/api/chat")
 async def chat(req: ChatRequest):
     message = req.message.strip()
     if not message:
@@ -231,6 +233,7 @@ async def chat(req: ChatRequest):
 
 
 @app.post("/chat/stream")
+@app.post("/api/chat/stream")
 async def chat_stream(req: ChatRequest):
     message = req.message.strip()
     if not message:
