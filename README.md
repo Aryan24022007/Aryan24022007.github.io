@@ -2,6 +2,12 @@
 
 A responsive dark/futuristic portfolio built with plain HTML, CSS and JavaScript. It is designed to deploy on free static hosting such as GitHub Pages.
 
+## 🚀 Live Demo
+
+**[View Raisen Portfolio →](https://Aryan24022007.github.io)**
+
+Anyone can open the link above to view the website directly without downloading or cloning the project.
+
 ## Edit your personal details
 Open `script.js` and replace the placeholder values in `CONFIG`:
 
