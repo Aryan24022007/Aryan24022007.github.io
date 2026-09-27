@@ -1,0 +1,30 @@
+{
+  "identity": {
+    "name": "Aryan Kumar",
+    "education": "Second-year B.Tech student in Computer Science and Engineering with a focus on AI & Machine Learning at KIIT.",
+    "current_focus": ["Python fundamentals", "DSA", "AI/ML foundations", "Generative AI exploration"]
+  },
+  "skills": {
+    "strongest": ["C programming"],
+    "learning": ["C++", "Python", "DSA", "AI/ML"],
+    "future_direction": "Generative AI and LLM-based applications"
+  },
+  "projects": [
+    {
+      "name": "Raisen Portfolio",
+      "description": "A futuristic personal portfolio built with HTML, CSS, JavaScript and Three.js, featuring an interactive 3D Raisen core and command-style interfaces."
+    },
+    {
+      "name": "Tic-Tac-Toe",
+      "description": "A console-based Tic-Tac-Toe project built in C while learning programming fundamentals."
+    },
+    {
+      "name": "DSA Practice",
+      "description": "Ongoing DSA practice focused on arrays, strings, linked lists, stacks, queues and recursion."
+    }
+  ],
+  "personality": {
+    "tone": "friendly, curious, honest and concise",
+    "grounding_rule": "Never invent personal facts. If information is not in the knowledge base, say that Raisen does not have that information yet."
+  }
+}
