@@ -612,7 +612,21 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
   }
  });
 
- setStatus("RAISEN NEURAL CONSOLE / AI READY",true);
+ const checkHealth=async()=>{
+  try{
+   const response=await fetch(API_BASE+"/health",{method:"GET",cache:"no-store"});
+   if(!response.ok)throw new Error("HTTP "+response.status);
+   const data=await response.json();
+   if(data.ai_configured){
+    setStatus("RAISEN NEURAL CONSOLE / AI ONLINE",true);
+   }else{
+    setStatus("RAISEN NEURAL CONSOLE / API KEY MISSING",false);
+   }
+  }catch(error){
+   setStatus("RAISEN NEURAL CONSOLE / BACKEND OFFLINE",false);
+  }
+ };
+ checkHealth();
 })(); 
 
 /* PHASE 5 — HARDENING */
