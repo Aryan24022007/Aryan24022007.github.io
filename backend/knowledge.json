@@ -1,30 +1,108 @@
 {
   "identity": {
     "name": "Aryan Kumar",
-    "education": "Second-year B.Tech student in Computer Science and Engineering with a focus on AI & Machine Learning at KIIT.",
-    "current_focus": ["Python fundamentals", "DSA", "AI/ML foundations", "Generative AI exploration"]
+    "education": "Second-year B.Tech student in Computer Science and Engineering with a focus on Artificial Intelligence and Machine Learning at KIIT.",
+    "year": "Second year",
+    "current_focus": [
+      "Python fundamentals",
+      "Data Structures and Algorithms (DSA)",
+      "AI/ML foundations",
+      "exploring Generative AI"
+    ]
   },
   "skills": {
-    "strongest": ["C programming"],
-    "learning": ["C++", "Python", "DSA", "AI/ML"],
+    "strongest": [
+      "C programming"
+    ],
+    "levels": {
+      "C programming": "Good; comfortable with core programming and DSA practice",
+      "C++": "Basic; building fundamentals",
+      "Python": "Beginner; currently learning variables and fundamentals",
+      "DSA": "Learning; arrays, strings, linked lists, stacks, queues and recursion",
+      "AI/ML": "New to the field; exploring foundations"
+    },
+    "learning": [
+      "C++",
+      "Python",
+      "DSA",
+      "AI/ML"
+    ],
     "future_direction": "Generative AI and LLM-based applications"
   },
   "projects": [
     {
       "name": "Raisen Portfolio",
-      "description": "A futuristic personal portfolio built with HTML, CSS, JavaScript and Three.js, featuring an interactive 3D Raisen core and command-style interfaces."
+      "aliases": [
+        "personal portfolio",
+        "live demo",
+        "portfolio website"
+      ],
+      "description": "Aryan's futuristic personal portfolio, designed around a mysterious AI/technology identity. It has responsive layouts, command-style interfaces and interactive 3D-style features, including a Three.js Raisen core and the Neural Console.",
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Three.js",
+        "GitHub Pages"
+      ]
     },
     {
       "name": "Tic-Tac-Toe",
-      "description": "A console-based Tic-Tac-Toe project built in C while learning programming fundamentals."
+      "aliases": [
+        "tic tac toe",
+        "C mini project"
+      ],
+      "description": "A console-based Tic-Tac-Toe game built in C while learning programming fundamentals, conditions, loops, functions and game logic.",
+      "technologies": [
+        "C",
+        "console"
+      ]
     },
     {
-      "name": "DSA Practice",
-      "description": "Ongoing DSA practice focused on arrays, strings, linked lists, stacks, queues and recursion."
+      "name": "LeetCode Practice",
+      "aliases": [
+        "DSA practice",
+        "problem-solving practice"
+      ],
+      "description": "Aryan has solved a few DSA problems so far, mainly using arrays, while strengthening problem-solving skills. The wider learning topics listed on the portfolio are arrays, strings, linked lists, stacks, queues and recursion.",
+      "technologies": [
+        "DSA",
+        "arrays",
+        "problem solving"
+      ]
     }
   ],
+  "portfolio": {
+    "website": "https://aryan24022007.github.io",
+    "repository": "Aryan24022007/Aryan24022007.github.io",
+    "features": [
+      "responsive portfolio",
+      "interactive 3D Raisen core",
+      "Three.js",
+      "Neural Console",
+      "project lab",
+      "developer world",
+      "recruiter mode",
+      "system controls"
+    ]
+  },
+  "interests": {
+    "outside_technology": [
+      "the gym",
+      "gaming",
+      "mobile photography, especially nature"
+    ],
+    "working_style": "Persistent; works through a problem until understanding how to move forward.",
+    "motivation": "Enjoys turning ideas into things that can be built, seen and used."
+  },
+  "contact": {
+    "email": "aryan240207@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/aryan-kumar-1a9378397",
+    "github": "https://github.com/Aryan24022007",
+    "instagram": "https://www.instagram.com/invites/contact/?utm_content=qt1fq4s&stkn=1ivhsrqq9sql9"
+  },
   "personality": {
     "tone": "friendly, curious, honest and concise",
-    "grounding_rule": "Never invent personal facts. If information is not in the knowledge base, say that Raisen does not have that information yet."
+    "grounding_rule": "Use the knowledge base as the only source for personal facts. Never invent or infer personal details. When a requested detail is not stated, say it is not available in Aryan's portfolio knowledge yet."
   }
 }

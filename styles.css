@@ -157,3 +157,16 @@ body.reduced-motion .hero-scene .three-world:before{
 }
 \n/* CERTIFICATE VIEWER — ACHIEVEMENT CARD */\n.achievement-link{display:grid;text-decoration:none;color:inherit;cursor:pointer;transition:transform .3s,border-color .3s,box-shadow .3s}.achievement-link:hover{transform:translateY(-6px) translateZ(8px);border-color:#a66cff66;box-shadow:0 25px 65px #0008,0 0 35px #a66cff12}.achievement-link .achievement-tag{display:inline-flex;align-items:center;gap:8px}.achievement-link .achievement-tag i{font-size:.65rem;color:#a66cff;transition:transform .25s}.achievement-link:hover .achievement-tag i{transform:translate(2px,-2px)}\n
 @keyframes raisenBootSafety{0%{opacity:1;visibility:visible;pointer-events:auto}99%{opacity:1;visibility:visible;pointer-events:auto}100%{opacity:0;visibility:hidden;pointer-events:none}}
+
+
+/* Neural Console agent activity states */
+.neural-top small[data-agent-state="idle"]{color:#8f839d}
+.neural-top small[data-agent-state="thinking"]{color:#d2b6ff}
+.neural-top small[data-agent-state="tool"]{color:#9ce8ff}
+.neural-top small[data-agent-state="answer"]{color:#b9f6d1}
+.neural-top small[data-agent-state="error"]{color:#ff9aaa}
+.neural-shell[data-agent-state="thinking"] .neural-orb-core{animation-duration:.8s;filter:brightness(1.2)}
+.neural-shell[data-agent-state="tool"] .neural-orb-core{filter:hue-rotate(35deg) brightness(1.08)}
+.neural-shell[data-agent-state="error"] .neural-orb-core{filter:hue-rotate(285deg) saturate(.7)}
+.neural-input-row input:disabled{opacity:.65}
+.neural-input-row button:disabled{opacity:.5;cursor:wait}

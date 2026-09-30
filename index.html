@@ -146,13 +146,13 @@
 <article class="dash glass-card wide-dash"><small>THE NEXT ARC</small><div class="arc"><span class="done">C</span><i></i><span class="done">DSA</span><i></i><span class="now">Python</span><i></i><span>ML</span><i></i><span>GenAI</span></div></article></div></section>
 
 <section class="section neural-console" id="neural-console">
-<div class="section-heading split-heading reveal"><div><div class="eyebrow">09 / NEURAL CONSOLE</div><h2>Talk to the system.<br><em>Explore the portfolio.</em></h2></div><p>A live AI companion powered by a secure backend. Ask about Aryan, the portfolio, general questions, or real-time utilities.</p></div>
-<div class="neural-shell">
-  <div class="neural-top"><div><span class="system-dot"></span><small>RAISEN NEURAL CONSOLE / AI LINK</small></div><span class="neural-shortcut">CTRL / ⌘ + ENTER</span></div>
+<div class="section-heading split-heading reveal"><div><div class="eyebrow">09 / NEURAL CONSOLE</div><h2>Talk to the system.<br><em>Explore the portfolio.</em></h2></div><p>A personal AI companion grounded in Aryan's portfolio knowledge, with streamed answers and live India date/time. Unknown personal details are called out clearly.</p></div>
+<div class="neural-shell" data-agent-state="idle">
+  <div class="neural-top"><div><span class="system-dot"></span><small id="neuralAgentStatus" role="status" aria-live="polite" data-agent-state="idle">RAISEN NEURAL CONSOLE / IDLE</small></div><span class="neural-shortcut">CTRL / ⌘ + ENTER</span></div>
   <div class="neural-body">
     <div class="neural-orb"><div class="neural-orb-core"></div><i></i><i></i><i></i></div>
     <div class="neural-terminal">
-      <div class="neural-history" id="neuralHistory"><div><b>RAISEN:</b> Console online. Ask about <span>skills</span>, <span>projects</span>, <span>journey</span>, <span>contact</span> or <span>commands</span>.</div></div>
+      <div class="neural-history" id="neuralHistory" aria-live="polite"><div><b>RAISEN:</b> I'm Aryan's portfolio agent. Ask about <span>skills</span>, <span>projects</span>, <span>education</span>, <span>interests</span>, <span>contact</span>, or the current time in India.</div></div>
       <div class="neural-input-row"><span>&gt;</span><input id="neuralInput" autocomplete="off" spellcheck="false" placeholder="type a command or question..."><button id="neuralSend" aria-label="Send command"><i class="fa-solid fa-arrow-up"></i></button></div>
     </div>
   </div>

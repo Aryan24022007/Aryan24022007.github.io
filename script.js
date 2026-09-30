@@ -416,33 +416,33 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 })(); 
 
 
-/* RAISEN AI — PHASE 2: LIVE CHAT BRIDGE */
+/* RAISEN PERSONAL AGENT — GROUNDED STREAMING CONSOLE */
 (()=>{
  const input=document.getElementById("neuralInput");
  const send=document.getElementById("neuralSend");
  const historyEl=document.getElementById("neuralHistory");
- const statusEl=document.querySelector(".neural-top small");
- if(!input||!send||!historyEl)return;
+ const statusEl=document.getElementById("neuralAgentStatus");
+ const shell=document.querySelector(".neural-shell");
+ if(!input||!send||!historyEl||!statusEl||!shell)return;
 
  /*
-  Configure the deployed backend with:
+  Override the backend URL here when needed:
   window.RAISEN_API_BASE="https://your-backend.example.com";
-  or localStorage.setItem("raisenApiBase","https://your-backend.example.com")
+  A Gemini key is never stored in or sent from this page.
  */
- const detectedBase=location.hostname.endsWith(".vercel.app")||location.hostname==="vercel.app"?location.origin:location.hostname.endsWith(".github.io")?"https://aryan24022007-github-io.vercel.app":"http://127.0.0.1:8000";
+ const detectedBase=location.hostname.endsWith(".vercel.app")||location.hostname==="vercel.app"
+  ?location.origin
+  :location.hostname.endsWith(".github.io")
+   ?"https://aryan24022007-github-io.vercel.app"
+   :"http://127.0.0.1:8000";
  const API_BASE=(window.RAISEN_API_BASE||localStorage.getItem("raisenApiBase")||detectedBase).replace(/\/+$/,"");
  const conversation=[];
 
  const localCommands={
-  commands:"Try: about, skills, projects, journey, contact, developer, recruiter, lab, system, home, clear.",
-  about:"Aryan Kumar — second-year B.Tech CSE (AI & ML) student, builder and explorer.",
-  skills:"Current stack: C, C++ basics, Python beginner, DSA learning. AI/ML → Generative AI is the next learning direction.",
-  projects:"Current projects: Raisen Portfolio, Tic-Tac-Toe in C, and DSA/LeetCode practice.",
-  journey:"Current path: C → DSA → Python → ML → Generative AI.",
-  contact:"Open the Contact section for email, LinkedIn, GitHub and Instagram.",
+  commands:"Ask about Aryan's education, skills, projects, learning journey, interests or public contact links. Safe local tools can also tell you the current date and time in India. Type clear to reset this conversation.",
   developer:"Developer World contains the interactive skill, project, evolution and connection modules.",
   recruiter:"Recruiter Mode is inside Developer World and gives a compact profile view.",
-  lab:"Project Lab lets you inspect the three current projects and run a system diagnostic.",
+  lab:"Project Lab lets you inspect the portfolio projects and run a system diagnostic.",
   system:"Use RUN SYSTEM CHECK inside Project Lab to inspect the major page modules.",
   home:"Returning to the core."
  };
@@ -459,11 +459,14 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
   return row;
  };
 
- const setStatus=(text,online=false)=>{
-  if(statusEl){
-   statusEl.textContent=text;
-   statusEl.dataset.aiState=online?"online":"offline";
-  }
+ const setAgentState=(state,label="")=>{
+  const allowed=["idle","thinking","tool","answer","error"];
+  const safeState=allowed.includes(state)?state:"idle";
+  shell.dataset.agentState=safeState;
+  statusEl.dataset.agentState=safeState;
+  const stateLabel={idle:"IDLE",thinking:"THINKING",tool:"TOOL",answer:"ANSWER",error:"ERROR"}[safeState];
+  const detail=label? " / "+String(label).replace(/\s+/g," ").trim().toUpperCase():"";
+  statusEl.textContent="RAISEN NEURAL CONSOLE / "+stateLabel+detail;
  };
 
  const setBusy=(busy)=>{
@@ -473,14 +476,14 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
  };
 
  const parseSSE=(buffer,consume)=>{
-  const events=buffer.split("\n\n");
+  const events=buffer.split(/\r?\n\r?\n/);
   const remainder=events.pop()||"";
   events.forEach(event=>{
    let type="message";
    const data=[];
-   event.split("\n").forEach(line=>{
+   event.split(/\r?\n/).forEach(line=>{
     if(line.startsWith("event:"))type=line.slice(6).trim();
-    if(line.startsWith("data:"))data.push(line.slice(5).trim());
+    else if(line.startsWith("data:"))data.push(line.slice(5).trimStart());
    });
    consume(type,data.join("\n"));
   });
@@ -488,16 +491,14 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
  };
 
  const streamChat=async message=>{
-  if(!API_BASE){
-   throw new Error("AI backend URL is not configured.");
-  }
+  if(!API_BASE)throw new Error("AI backend URL is not configured.");
 
-  const response=await fetch(API_BASE+"/api",{
+  const response=await fetch(API_BASE+"/api/chat/stream",{
    method:"POST",
-   headers:{"Content-Type":"application/json"},
+   headers:{"Content-Type":"application/json","Accept":"text/event-stream"},
    body:JSON.stringify({
     message,
-    conversation_history:conversation.slice(-8)
+    conversation_history:conversation.slice(0,-1).slice(-8)
    })
   });
 
@@ -509,7 +510,6 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
    }catch(e){}
    throw new Error(detail);
   }
-
   if(!response.body)throw new Error("AI backend returned no stream.");
 
   const row=document.createElement("div");
@@ -527,10 +527,18 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
   const decoder=new TextDecoder();
 
   const consume=(type,data)=>{
+   if(type==="state"){
+    try{
+     const state=JSON.parse(data);
+     setAgentState(state.state,state.label||"");
+    }catch(e){}
+    return;
+   }
    if(type==="error"){
     let message=data;
     try{message=JSON.parse(data)}catch(e){}
-    throw new Error(String(message||"AI stream failed."));
+    setAgentState("error");
+    throw new Error(String(message||"The agent stream failed."));
    }
    if(type==="done")return;
    if(!data)return;
@@ -544,19 +552,24 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
 
   try{
    while(true){
-    const {value,done}=await reader.read();
-    if(done)break;
-    buffer+=decoder.decode(value,{stream:true});
+    const result=await reader.read();
+    if(result.done)break;
+    buffer+=decoder.decode(result.value,{stream:true});
     buffer=parseSSE(buffer,consume);
    }
    buffer+=decoder.decode();
    if(buffer.trim())parseSSE(buffer+"\n\n",consume);
+  }catch(error){
+   row.remove();
+   try{await reader.cancel()}catch(e){}
+   throw error;
   }finally{
    reader.releaseLock();
   }
 
-  if(!fullReply.trim())throw new Error("RAISEN returned an empty response.");
+  if(!fullReply.trim())throw new Error("Raisen returned an empty response.");
   conversation.push({role:"assistant",content:fullReply});
+  setAgentState("answer");
   return fullReply;
  };
 
@@ -564,40 +577,40 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
   const q=input.value.trim();
   if(!q||send.disabled)return;
   input.value="";
-
   const normalized=q.toLowerCase();
   add("YOU",q,"user-line");
 
   if(normalized==="clear"){
    historyEl.innerHTML="";
    conversation.length=0;
-   setStatus("RAISEN NEURAL CONSOLE / AI READY",true);
+   setAgentState("idle");
    return;
   }
 
   if(normalized==="home"){
    location.hash="home";
    add("RAISEN",localCommands.home);
+   setAgentState("answer");
    return;
   }
 
-  if(["commands","about","skills","projects","journey","contact","developer","recruiter","lab","system"].includes(normalized)){
+  if(["commands","developer","recruiter","lab","system"].includes(normalized)){
    add("RAISEN",localCommands[normalized]);
    conversation.push({role:"user",content:q},{role:"assistant",content:localCommands[normalized]});
+   setAgentState("answer");
    return;
   }
 
   conversation.push({role:"user",content:q});
   setBusy(true);
-  setStatus("RAISEN NEURAL CONSOLE / THINKING...",false);
+  setAgentState("thinking");
 
   try{
    await streamChat(q);
-   setStatus("RAISEN NEURAL CONSOLE / AI ONLINE",true);
   }catch(error){
-   add("RAISEN","AI link unavailable: "+(error?.message||"connection failed.")+" Try again after the backend is running.");
+   setAgentState("error");
+   add("RAISEN","Agent connection unavailable: "+(error?.message||"connection failed.")+" Check that the backend is online and configured.");
    conversation.pop();
-   setStatus("RAISEN NEURAL CONSOLE / OFFLINE",false);
   }finally{
    setBusy(false);
    input.focus();
@@ -605,9 +618,9 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
  };
 
  send.addEventListener("click",run);
- input.addEventListener("keydown",e=>{
-  if(e.key==="Enter"){
-   e.preventDefault();
+ input.addEventListener("keydown",event=>{
+  if(event.key==="Enter"){
+   event.preventDefault();
    run();
   }
  });
@@ -617,17 +630,16 @@ const loader=document.getElementById("loader");window.addEventListener("load",()
    const response=await fetch(API_BASE+"/api",{method:"GET",cache:"no-store"});
    if(!response.ok)throw new Error("HTTP "+response.status);
    const data=await response.json();
-   if(data.ai_configured){
-    setStatus("RAISEN NEURAL CONSOLE / AI ONLINE",true);
-   }else{
-    setStatus("RAISEN NEURAL CONSOLE / API KEY MISSING",false);
-   }
+   if(input.disabled)return;
+   if(data.ai_configured)setAgentState("idle");
+   else setAgentState("error","Gemini setup needed");
   }catch(error){
-   setStatus("RAISEN NEURAL CONSOLE / BACKEND OFFLINE",false);
+   if(!input.disabled)setAgentState("error","Backend offline");
   }
  };
  checkHealth();
 })(); 
+
 
 /* PHASE 5 — HARDENING */
 (()=>{
