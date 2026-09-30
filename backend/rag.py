@@ -20,6 +20,8 @@ def build_documents(data: dict) -> list[dict[str, str]]:
         "text": (
             f"Name: {identity.get('name', '')}. "
             f"Education: {identity.get('education', '')}. "
+            f"Degree and course: {identity.get('degree', '')}. "
+            f"College, university and institution: {identity.get('institution', '')}. "
             f"Current year: {identity.get('year', '')}. "
             f"Current focus: {', '.join(identity.get('current_focus', []))}."
         ),
@@ -70,7 +72,8 @@ def build_documents(data: dict) -> list[dict[str, str]]:
         "id": "interests",
         "title": "Interests and working style",
         "text": (
-            f"Outside technology, Aryan enjoys: {', '.join(interests.get('outside_technology', []))}. "
+            f"Hobby, hobbies, interests and free time activities: {', '.join(interests.get('outside_technology', []))}. "
+            f"Personality traits: {', '.join(interests.get('personality', []))}. "
             f"Working style: {interests.get('working_style', '')}. "
             f"Motivation: {interests.get('motivation', '')}."
         ),

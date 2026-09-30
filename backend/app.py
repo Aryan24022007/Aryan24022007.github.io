@@ -66,12 +66,22 @@ def build_retrieval_query(message: str, history: list[dict[str, str]]) -> str:
 
 def detect_local_tool(message: str) -> str | None:
     q = message.lower().strip()
-    has_time = bool(re.search(r"\b(?:time|clock)\b", q))
-    has_date = bool(re.search(r"\b(?:date|day)\b", q))
-    asks_now = bool(re.search(r"\b(?:what|current|today|now|right now|tell me)\b", q))
-    if has_time and asks_now:
+    time_request = re.search(
+        r"\b(?:what\s+time\s+is\s+it|what(?:'s| is)\s+the\s+time|"
+        r"current\s+time|time\s+(?:now|right\s+now)|"
+        r"tell\s+me\s+(?:the\s+)?(?:current\s+)?time)\b",
+        q,
+    )
+    date_request = re.search(
+        r"\b(?:what\s+date\s+is\s+it|what\s+day\s+is\s+it|"
+        r"what(?:'s| is)\s+(?:the\s+)?date|current\s+date|"
+        r"date\s+(?:today|now)|today'?s\s+date|"
+        r"tell\s+me\s+(?:the\s+)?(?:current\s+)?date)\b",
+        q,
+    )
+    if time_request:
         return "india_time"
-    if has_date and asks_now:
+    if date_request:
         return "india_date"
     return None
 
